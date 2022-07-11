@@ -35,74 +35,74 @@ import java.io.*;
 class DoubleConstant extends ConstantPoolEntry
 {
 
-	private double doubler;
+    private double doubler;
 
-	/**
-	 * <p>
-	 * construct a DOUBLE_CONSTANT CPE
-	 * </p>
-	 *
-	 * @param d  the double constant
-	 * @param cf the class file
-	 */
+    /**
+     * <p>
+     * construct a DOUBLE_CONSTANT CPE
+     * </p>
+     *
+     * @param d  the double constant
+     * @param cf the class file
+     */
 
-	DoubleConstant(double d, ClassFile cf)
-	{
-		super(CONSTANT_DOUBLE, cf);
+    DoubleConstant(double d, ClassFile cf)
+    {
+        super(CONSTANT_DOUBLE, cf);
 
-		doubler = d;
+        doubler = d;
 
-		addToConstantPool();
-	}
+        addToConstantPool();
+    }
 
-	/**
-	 * <p>
-	 * write the constant CPE to the stream
-	 * </p>
-	 *
-	 * @param dos the stream
-	 *
-	 * @throws IOException
-	 */
+    /**
+     * <p>
+     * write the constant CPE to the stream
+     * </p>
+     *
+     * @param dos the stream
+     *
+     * @throws IOException
+     */
 
-	@Override
-	void write(DataOutputStream dos) throws IOException {
-		dos.writeByte(getTag());
-		dos.writeDouble(doubler);
-	}
+    @Override
+    void write(DataOutputStream dos) throws IOException {
+        dos.writeByte(getTag());
+        dos.writeDouble(doubler);
+    }
 
-	/**
-	 * @return the double constant value.
-	 */
+    /**
+     * @return the double constant value.
+     */
 
-	double getValue() {
-		return doubler;
-	}
+    double getValue() {
+        return doubler;
+    }
 
-	/**
-	 * @return the object's equality.
-	 */
+    /**
+     * @return the object's equality.
+     */
 
-	@Override
-	public boolean equals(Object o) {
-		if (o instanceof Double)
-		{
-			return doubler == ((Double) o).doubleValue();
-		} else if (o instanceof DoubleConstant)
-		{
-			DoubleConstant dc = (DoubleConstant) o;
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Double)
+        {
+            return doubler == ((Double) o).doubleValue();
+        } else if (o instanceof DoubleConstant)
+        {
+            DoubleConstant dc = (DoubleConstant) o;
 
-			return doubler == dc.getValue();
-		}
+            return doubler == dc.getValue();
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	/**
-	 * @return a hashcode for the object.
-	 */
-	@Override
-	public int hashCode() {
-		return (int) doubler;
-	}
+    /**
+     * @return a hashcode for the object.
+     */
+    @Override
+    public int hashCode() {
+        return (int) doubler;
+    }
 }

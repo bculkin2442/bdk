@@ -15,88 +15,88 @@ import java.io.*;
 public class ExternalizableButton extends ExplicitButton implements Externalizable
 {
 
-	// We take complete control of our own persistence state with externalization.
+    // We take complete control of our own persistence state with externalization.
 
-	@Override
-	public void writeExternal(ObjectOutput out) throws IOException {
-		out.writeInt(currentMagic);
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeInt(currentMagic);
 
-		Rectangle bounds = getBounds();
-		out.writeInt(bounds.x);
-		out.writeInt(bounds.y);
-		out.writeInt(bounds.width);
-		out.writeInt(bounds.height);
+        Rectangle bounds = getBounds();
+        out.writeInt(bounds.x);
+        out.writeInt(bounds.y);
+        out.writeInt(bounds.width);
+        out.writeInt(bounds.height);
 
-		out.writeUTF(getLabel());
+        out.writeUTF(getLabel());
 
-		Color bg = getBackground();
-		if (bg == null)
-		{
-			out.writeInt(0);
-		} else
-		{
-			out.writeInt(bg.getRGB());
-		}
+        Color bg = getBackground();
+        if (bg == null)
+        {
+            out.writeInt(0);
+        } else
+        {
+            out.writeInt(bg.getRGB());
+        }
 
-		Color fg = getForeground();
-		if (fg == null)
-		{
-			out.writeInt(0);
-		} else
-		{
-			out.writeInt(fg.getRGB());
-		}
+        Color fg = getForeground();
+        if (fg == null)
+        {
+            out.writeInt(0);
+        } else
+        {
+            out.writeInt(fg.getRGB());
+        }
 
-		Font f = getFont();
-		if (f == null)
-		{
-			out.writeInt(-1);
-		} else
-		{
-			out.writeInt(f.getStyle());
-			out.writeInt(f.getSize());
-			out.writeUTF(f.getName());
-		}
-	}
+        Font f = getFont();
+        if (f == null)
+        {
+            out.writeInt(-1);
+        } else
+        {
+            out.writeInt(f.getStyle());
+            out.writeInt(f.getSize());
+            out.writeUTF(f.getName());
+        }
+    }
 
-	@Override
-	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-		int magic = in.readInt();
-		if (magic != currentMagic)
-		{
-			throw new IOException("magic number mismatch for ExternalizableButton");
-		}
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        int magic = in.readInt();
+        if (magic != currentMagic)
+        {
+            throw new IOException("magic number mismatch for ExternalizableButton");
+        }
 
-		int x = in.readInt();
-		int y = in.readInt();
-		int width = in.readInt();
-		int height = in.readInt();
-		setBounds(x, y, width, height);
+        int x = in.readInt();
+        int y = in.readInt();
+        int width = in.readInt();
+        int height = in.readInt();
+        setBounds(x, y, width, height);
 
-		setLabel(in.readUTF());
+        setLabel(in.readUTF());
 
-		int bg = in.readInt();
-		if (bg != 0)
-		{
-			setBackground(new Color(bg));
-		}
+        int bg = in.readInt();
+        if (bg != 0)
+        {
+            setBackground(new Color(bg));
+        }
 
-		int fg = in.readInt();
-		if (fg != 0)
-		{
-			setForeground(new Color(fg));
-		}
+        int fg = in.readInt();
+        if (fg != 0)
+        {
+            setForeground(new Color(fg));
+        }
 
-		int style = in.readInt();
-		if (style >= 0)
-		{
-			int size = in.readInt();
-			String name = in.readUTF();
-			Font f = new Font(name, style, size);
-			setFont(f);
-		}
+        int style = in.readInt();
+        if (style >= 0)
+        {
+            int size = in.readInt();
+            String name = in.readUTF();
+            Font f = new Font(name, style, size);
+            setFont(f);
+        }
 
-	}
+    }
 
-	private final static int currentMagic = 0xAAAAAAAA;
+    private final static int currentMagic = 0xAAAAAAAA;
 }

@@ -36,153 +36,153 @@ import java.io.*;
 class Exceptions extends Attribute
 {
 
-	private ClassConstant[] exceptions;
+    private ClassConstant[] exceptions;
 
-	/**
-	 * <p>
-	 * construct an Exceptions attribute that enumerates the exceptions
-	 * </p>
-	 *
-	 * @param exs[] an array of exception class constants
-	 * @param cf    the containing class file
-	 */
+    /**
+     * <p>
+     * construct an Exceptions attribute that enumerates the exceptions
+     * </p>
+     *
+     * @param exs[] an array of exception class constants
+     * @param cf    the containing class file
+     */
 
-	Exceptions(ClassConstant[] exs, ClassFile cf)
-	{
-		super(Attribute.EXCEPTIONS, cf);
+    Exceptions(ClassConstant[] exs, ClassFile cf)
+    {
+        super(Attribute.EXCEPTIONS, cf);
 
-		// we should validate that the ClassConstants are all
-		// subclasses of Exception here ...
+        // we should validate that the ClassConstants are all
+        // subclasses of Exception here ...
 
-		exceptions = exs;
-	}
+        exceptions = exs;
+    }
 
-	/**
-	 * <p>
-	 * construct an Exceptions attribute that enumerates the exceptions
-	 * </p>
-	 *
-	 * @param exs[] an array of exception class types
-	 * @param cf    the containing class file
-	 *
-	 */
-	Exceptions(Class[] exs, ClassFile cf)
-	{
-		super(Attribute.EXCEPTIONS, cf);
+    /**
+     * <p>
+     * construct an Exceptions attribute that enumerates the exceptions
+     * </p>
+     *
+     * @param exs[] an array of exception class types
+     * @param cf    the containing class file
+     *
+     */
+    Exceptions(Class<?>[] exs, ClassFile cf)
+    {
+        super(Attribute.EXCEPTIONS, cf);
 
-		// we should validate that the ClassConstants are all
-		// subclasses of Exception here ...
+        // we should validate that the ClassConstants are all
+        // subclasses of Exception here ...
 
-		ClassConstant[] cc = new ClassConstant[exs.length];
+        ClassConstant[] cc = new ClassConstant[exs.length];
 
-		for (int i = 0; i < exs.length; i++)
-			cc[i] = cf.addClassConstant(exs[i].getName());
+        for (int i = 0; i < exs.length; i++)
+            cc[i] = cf.addClassConstant(exs[i].getName());
 
-		exceptions = cc;
-	}
+        exceptions = cc;
+    }
 
-	/**
-	 * <p>
-	 * write the Exceptions attribute to the stream
-	 * </p>
-	 *
-	 * @param dos the output stream
-	 *
-	 * @throws IOException
-	 */
+    /**
+     * <p>
+     * write the Exceptions attribute to the stream
+     * </p>
+     *
+     * @param dos the output stream
+     *
+     * @throws IOException
+     */
 
-	@Override
-	void write(DataOutputStream dos) throws IOException {
-		dos.writeShort(getNameConstantPoolIndex());
-		dos.writeInt(getLength());
+    @Override
+    void write(DataOutputStream dos) throws IOException {
+        dos.writeShort(getNameConstantPoolIndex());
+        dos.writeInt(getLength());
 
-		if (exceptions != null && exceptions.length > 0)
-		{
-			dos.writeShort(exceptions.length);
+        if (exceptions != null && exceptions.length > 0)
+        {
+            dos.writeShort(exceptions.length);
 
-			for (ClassConstant exception : exceptions)
-			{
-				dos.writeShort(exception.getConstantPoolIndex());
-			}
-		} else
-			dos.writeShort(0);
-	}
+            for (ClassConstant exception : exceptions)
+            {
+                dos.writeShort(exception.getConstantPoolIndex());
+            }
+        } else
+            dos.writeShort(0);
+    }
 
-	/**
-	 * @return the Object's equality
-	 */
+    /**
+     * @return the Object's equality
+     */
 
-	@Override
-	public boolean equals(Object o) {
-		if (o instanceof Exceptions)
-		{
-			Exceptions other = (Exceptions) o;
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Exceptions)
+        {
+            Exceptions other = (Exceptions) o;
 
-			if (exceptions.length == other.exceptions.length)
-			{
-				for (int i = 0; i < exceptions.length; i++)
-				{
-					if (!exceptions[i].equals(other.exceptions[i]))
-						return false;
-				}
+            if (exceptions.length == other.exceptions.length)
+            {
+                for (int i = 0; i < exceptions.length; i++)
+                {
+                    if (!exceptions[i].equals(other.exceptions[i]))
+                        return false;
+                }
 
-				return true;
-			}
-		}
+                return true;
+            }
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	/**
-	 * @return a hashcode for the object.
-	 */
-	@Override
-	public int hashCode() {
-		// We don't come here often, so we keep it simple.
-		return exceptions.length;
-	}
+    /**
+     * @return a hashcode for the object.
+     */
+    @Override
+    public int hashCode() {
+        // We don't come here often, so we keep it simple.
+        return exceptions.length;
+    }
 
-	/**
-	 * @return the length of the Attribute in bytes
-	 */
+    /**
+     * @return the length of the Attribute in bytes
+     */
 
-	@Override
-	int getLength() {
-		return exceptions.length * 2 + 2;
-	}
+    @Override
+    int getLength() {
+        return exceptions.length * 2 + 2;
+    }
 
-	/**
-	 * <p>
-	 * adds exception class to the attribute.
-	 * </p>
-	 *
-	 * @param a class constant to add to the attribute
-	 *
-	 */
+    /**
+     * <p>
+     * adds exception class to the attribute.
+     * </p>
+     *
+     * @param a class constant to add to the attribute
+     *
+     */
 
-	void addException(ClassConstant ex) {
+    void addException(ClassConstant ex) {
 
-		// should verify that ClassConstant is exception subclass and not
-		// already in the attribute
+        // should verify that ClassConstant is exception subclass and not
+        // already in the attribute
 
-		if (exceptions == null)
-		{
-			exceptions = new ClassConstant[1];
+        if (exceptions == null)
+        {
+            exceptions = new ClassConstant[1];
 
-			exceptions[0] = ex;
-		} else
-		{
-			ClassConstant[] temp = new ClassConstant[exceptions.length + 1];
-			int i;
+            exceptions[0] = ex;
+        } else
+        {
+            ClassConstant[] temp = new ClassConstant[exceptions.length + 1];
+            int i;
 
-			for (i = 0; i < exceptions.length; i++)
-			{
-				temp[i] = exceptions[i];
-			}
+            for (i = 0; i < exceptions.length; i++)
+            {
+                temp[i] = exceptions[i];
+            }
 
-			temp[i] = ex;
+            temp[i] = ex;
 
-			exceptions = temp;
-		}
-	}
+            exceptions = temp;
+        }
+    }
 }

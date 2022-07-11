@@ -50,203 +50,203 @@ import java.util.*;
 public final class EventMonitor extends TextArea implements BeanContextProxy
 {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 1647354980085975220L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1647354980085975220L;
 
-	private static String msg = "Event Monitor\n";
+    private static String msg = "Event Monitor\n";
 
-	private static Dimension zero = new Dimension(0, 0);
+    private static Dimension zero = new Dimension(0, 0);
 
-	private transient EventManager em;
-	private Vector beans = new Vector();
+    private transient EventManager em;
+    private Vector beans = new Vector();
 
-	private transient BeanContextChildSupport bccs = new BeanContextChildSupport()
-	{
-		/**
-			 * 
-			 */
-		private static final long serialVersionUID = -7940361527667086870L;
+    private transient BeanContextChildSupport bccs = new BeanContextChildSupport()
+    {
+        /**
+         *
+         */
+        private static final long serialVersionUID = -7940361527667086870L;
 
-		@Override
-		protected void initializeBeanContextResources() {
-			if (beanContext != null)
-				beanContext.addBeanContextMembershipListener(bcml);
-		}
+        @Override
+        protected void initializeBeanContextResources() {
+            if (beanContext != null)
+                beanContext.addBeanContextMembershipListener(bcml);
+        }
 
-		@Override
-		protected void releaseBeanContextResources() {
-			if (beanContext != null)
-				beanContext.removeBeanContextMembershipListener(bcml);
-		}
+        @Override
+        protected void releaseBeanContextResources() {
+            if (beanContext != null)
+                beanContext.removeBeanContextMembershipListener(bcml);
+        }
 
-	};
+    };
 
-	private transient BeanContextMembershipListener bcml
-			= new BeanContextMembershipListener()
-			{
-				@Override
-				public void childrenAdded(BeanContextMembershipEvent bcme) {
-					Iterator i = bcme.iterator();
+    private transient BeanContextMembershipListener bcml
+    = new BeanContextMembershipListener()
+    {
+        @Override
+        public void childrenAdded(BeanContextMembershipEvent bcme) {
+            Iterator<Object> i = bcme.iterator();
 
-					while (i.hasNext())
-					{
-						Object o = i.next();
+            while (i.hasNext())
+            {
+                Object o = i.next();
 
-						if (!(o.equals(EventMonitor.this) || o.equals(bccs)))
-						{
-							EventMonitor.this.addEventSource(o);
-						}
-					}
-				}
+                if (!(o.equals(EventMonitor.this) || o.equals(bccs)))
+                {
+                    EventMonitor.this.addEventSource(o);
+                }
+            }
+        }
 
-				@Override
-				public void childrenRemoved(BeanContextMembershipEvent bcme) {
-					Iterator i = bcme.iterator();
+        @Override
+        public void childrenRemoved(BeanContextMembershipEvent bcme) {
+            Iterator<Object> i = bcme.iterator();
 
-					while (i.hasNext())
-					{
-						Object o = i.next();
+            while (i.hasNext())
+            {
+                Object o = i.next();
 
-						if (!(o.equals(EventMonitor.this) || o.equals(bccs)))
-						{
-							EventMonitor.this.removeEventSource(o);
-						}
-					}
-				}
-			};
+                if (!(o.equals(EventMonitor.this) || o.equals(bccs)))
+                {
+                    EventMonitor.this.removeEventSource(o);
+                }
+            }
+        }
+    };
 
-	/**
-	 * <p>
-	 * Construct an EventMonitor Bean.
-	 * </p>
-	 */
+    /**
+     * <p>
+     * Construct an EventMonitor Bean.
+     * </p>
+     */
 
-	public EventMonitor()
-	{
-		super(msg, 4, 32);
+    public EventMonitor()
+    {
+        super(msg, 4, 32);
 
-		setEditable(false);
-		setVisible(true);
+        setEditable(false);
+        setVisible(true);
 
-		em = new EventManager(this);
-	}
+        em = new EventManager(this);
+    }
 
-	/**
-	 * <p>
-	 * Adds the listener eel to the source s to receive ALL events s emits
-	 * as encpasulated events. Will throw IllegalArgumentException if s is
-	 * not managed by this EncapsulatedEventManager.
-	 * </p>
-	 *
-	 * @param s   the event source
-	 * @param eel the listener
-	 *
-	 * @throws IllegalArgumentException
-	 */
+    /**
+     * <p>
+     * Adds the listener eel to the source s to receive ALL events s emits
+     * as encpasulated events. Will throw IllegalArgumentException if s is
+     * not managed by this EncapsulatedEventManager.
+     * </p>
+     *
+     * @param s   the event source
+     * @param eel the listener
+     *
+     * @throws IllegalArgumentException
+     */
 
-	public void addEventSource(Object s) {
-		em.addEncapsulatedEventListener(s, em, em.getSourceEventListenerInterfaces(s));
-		beans.addElement(s);
-	}
+    public void addEventSource(Object s) {
+        em.addEncapsulatedEventListener(s, em, em.getSourceEventListenerInterfaces(s));
+        beans.addElement(s);
+    }
 
-	/**
-	 * <p>
-	 * Removes the listener eel from the source s, thus unregistering eel from
-	 * receiving encapsulated events for all the events that s emits.
-	 * Will throw IllegalArgumentException if s is not managed by this
-	 * EncapsulatedEventManager.
-	 * </p>
-	 *
-	 * @param s the event source
-	 *
-	 * @throws IllegalArgumentException
-	 * @throws NullPointerException
-	 */
+    /**
+     * <p>
+     * Removes the listener eel from the source s, thus unregistering eel from
+     * receiving encapsulated events for all the events that s emits.
+     * Will throw IllegalArgumentException if s is not managed by this
+     * EncapsulatedEventManager.
+     * </p>
+     *
+     * @param s the event source
+     *
+     * @throws IllegalArgumentException
+     * @throws NullPointerException
+     */
 
-	void removeEventSource(Object s) {
-		em.removeEncapsulatedEventListener(s, em, em.getSourceEventListenerInterfaces(s));
-		beans.removeElement(s);
-	}
+    void removeEventSource(Object s) {
+        em.removeEncapsulatedEventListener(s, em, em.getSourceEventListenerInterfaces(s));
+        beans.removeElement(s);
+    }
 
-	/**
-	 * @return the object's preferred size
-	 */
+    /**
+     * @return the object's preferred size
+     */
 
-	@Override
-	public Dimension getPreferredSize() {
-		Dimension current = getSize();
+    @Override
+    public Dimension getPreferredSize() {
+        Dimension current = getSize();
 
-		/*
-		 * This method exists as a hack to ensure that when the TextArea is
-		 * resized by the user that it in fact does resize properly.
-		 * The bug exhibited is that the object gets a reshape() to the new
-		 * Dimension followed by a reshape() to the previosu Dimension prior
-		 * to the user resize gesture.
-		 * The cause of this is that the Wrapper object first resizes the
-		 * Bean calling reshape with the new size, then it calls layout
-		 * which requests the Beans preferredSize().
-		 * As best as I can tell the Component.getPreferredSize() replies
-		 * with the preferredSize() of its peer which at this stage of the
-		 * proceedings is still the old Dimension since the actual resize
-		 * of the peer was deferred in Component.reshape().
-		 * cheating by replying my current Dimension if non-zero seems to
-		 * work since by th etime layout occurs Component.reshape() has
-		 * updated this object's Dimension properly.
-		 * having said all that I am not confident that this does not
-		 * introduce less than desirable behaviors under different
-		 * circumstances.
-		 */
+        /*
+         * This method exists as a hack to ensure that when the TextArea is
+         * resized by the user that it in fact does resize properly.
+         * The bug exhibited is that the object gets a reshape() to the new
+         * Dimension followed by a reshape() to the previosu Dimension prior
+         * to the user resize gesture.
+         * The cause of this is that the Wrapper object first resizes the
+         * Bean calling reshape with the new size, then it calls layout
+         * which requests the Beans preferredSize().
+         * As best as I can tell the Component.getPreferredSize() replies
+         * with the preferredSize() of its peer which at this stage of the
+         * proceedings is still the old Dimension since the actual resize
+         * of the peer was deferred in Component.reshape().
+         * cheating by replying my current Dimension if non-zero seems to
+         * work since by th etime layout occurs Component.reshape() has
+         * updated this object's Dimension properly.
+         * having said all that I am not confident that this does not
+         * introduce less than desirable behaviors under different
+         * circumstances.
+         */
 
-		return (current.equals(zero) ? super.getPreferredSize() : current);
+        return (current.equals(zero) ? super.getPreferredSize() : current);
 
-	}
+    }
 
-	/**
-	 * <p>
-	 * register the event source for monitoring
-	 * </p>
-	 *
-	 * @param eo the event object
-	 */
+    /**
+     * <p>
+     * register the event source for monitoring
+     * </p>
+     *
+     * @param eo the event object
+     */
 
-	public void initiateEventSourceMonitoring(EventObject eo) {
-		addEventSource(eo.getSource());
-	}
+    public void initiateEventSourceMonitoring(EventObject eo) {
+        addEventSource(eo.getSource());
+    }
 
-	/**
-	 * @return my BCC ...
-	 */
+    /**
+     * @return my BCC ...
+     */
 
-	@Override
-	public BeanContextChild getBeanContextProxy() {
-		return bccs;
-	}
+    @Override
+    public BeanContextChild getBeanContextProxy() {
+        return bccs;
+    }
 
-	// Support for serialization.
-	private void writeObject(java.io.ObjectOutputStream s) throws java.io.IOException {
-		// Sorry the EventMonitor is not serializable yet,
-		// because the various event listeners we create are
-		// not serializable.
-		throw new java.io.IOException("EventMonitor isn't serializable");
-	}
+    // Support for serialization.
+    private void writeObject(java.io.ObjectOutputStream s) throws java.io.IOException {
+        // Sorry the EventMonitor is not serializable yet,
+        // because the various event listeners we create are
+        // not serializable.
+        throw new java.io.IOException("EventMonitor isn't serializable");
+    }
 
-	private void readObject(java.io.ObjectInputStream s)
-			throws java.lang.ClassNotFoundException, java.io.IOException {
-		s.defaultReadObject();
-		em = new EventManager(this);
-		// Reattach all the previously registered beans.
-		for (int i = 0; i < beans.size(); i++)
-		{
-			Object bean = beans.elementAt(i);
-			if (bean == null)
-			{
-				continue;
-			}
-			addEventSource(bean);
-		}
-	}
+    private void readObject(java.io.ObjectInputStream s)
+            throws java.lang.ClassNotFoundException, java.io.IOException {
+        s.defaultReadObject();
+        em = new EventManager(this);
+        // Reattach all the previously registered beans.
+        for (int i = 0; i < beans.size(); i++)
+        {
+            Object bean = beans.elementAt(i);
+            if (bean == null)
+            {
+                continue;
+            }
+            addEventSource(bean);
+        }
+    }
 
 }
 
@@ -257,253 +257,253 @@ public final class EventMonitor extends TextArea implements BeanContextProxy
 final class EventManager implements EncapsulatedEventManager, EncapsulatedEventListener
 {
 
-	private int eventCnt = 1;
+    private int eventCnt = 1;
 
-	private EventMonitor em;
+    private EventMonitor em;
 
-	private transient Hashtable sources = new Hashtable();
+    private transient Hashtable<Object, Hashtable<Class<?>, EncapsulatedEventAdaptor>> sources = new Hashtable<>();
 
-	/*
-	 * 
-	 */
+    /*
+     *
+     */
 
-	EventManager(EventMonitor owner)
-	{
-		super();
+    EventManager(EventMonitor owner)
+    {
+        super();
 
-		em = owner;
-	}
+        em = owner;
+    }
 
-	/**
-	 * <p>
-	 * Called to determine the events that a particular source emits. Will throw
-	 * IllegalArgumentException if s is not managed by this
-	 * EncapsulatedEventManager.
-	 * </p>
-	 *
-	 * @param s the event source
-	 *
-	 * @return list of java.util.EventListener sub-interfaces that s sources or
-	 *         null.
-	 *
-	 * @throws IllegalArgumentException
-	 * @throws NullPointerException
-	 */
+    /**
+     * <p>
+     * Called to determine the events that a particular source emits. Will throw
+     * IllegalArgumentException if s is not managed by this
+     * EncapsulatedEventManager.
+     * </p>
+     *
+     * @param s the event source
+     *
+     * @return list of java.util.EventListener sub-interfaces that s sources or
+     *         null.
+     *
+     * @throws IllegalArgumentException
+     * @throws NullPointerException
+     */
 
-	@Override
-	public Class[] getSourceEventListenerInterfaces(Object s) {
-		EventSetDescriptor[] esd = null;
+    @Override
+    public Class<?>[] getSourceEventListenerInterfaces(Object s) {
+        EventSetDescriptor[] esd = null;
 
-		try
-		{
-			esd = Introspector.getBeanInfo(s.getClass()).getEventSetDescriptors();
-		} catch (IntrospectionException ie)
-		{
-			System.err.println("Failed to introspect");
-		}
+        try
+        {
+            esd = Introspector.getBeanInfo(s.getClass()).getEventSetDescriptors();
+        } catch (IntrospectionException ie)
+        {
+            System.err.println("Failed to introspect");
+        }
 
-		Class[] ifs
-				= (esd != null && esd.length > 0 ? new Class[esd.length] : new Class[0]);
+        Class<?>[] ifs
+        = (esd != null && esd.length > 0 ? new Class[esd.length] : new Class[0]);
 
-		for (int i = 0; i < ifs.length; i++)
-		{
-			ifs[i] = esd[i].getListenerType();
-		}
+        for (int i = 0; i < ifs.length; i++)
+        {
+            ifs[i] = esd[i].getListenerType();
+        }
 
-		return ifs;
-	}
+        return ifs;
+    }
 
-	/**
-	 * <p>
-	 * Adds the listener eel to the source s to receive ALL events s emits
-	 * as encpasulated events. Will throw IllegalArgumentException if s is
-	 * not managed by this EncapsulatedEventManager.
-	 * </p>
-	 *
-	 * @param s   the event source
-	 * @param eel the listener
-	 *
-	 * @throws IllegalArgumentException
-	 * @throws NullPointerException
-	 */
+    /**
+     * <p>
+     * Adds the listener eel to the source s to receive ALL events s emits
+     * as encpasulated events. Will throw IllegalArgumentException if s is
+     * not managed by this EncapsulatedEventManager.
+     * </p>
+     *
+     * @param s   the event source
+     * @param eel the listener
+     *
+     * @throws IllegalArgumentException
+     * @throws NullPointerException
+     */
 
-	@Override
-	public void addEncapsulatedEventListener(Object s, EncapsulatedEventListener eel) {
-		addEncapsulatedEventListener(s, eel, getSourceEventListenerInterfaces(s));
-	}
+    @Override
+    public void addEncapsulatedEventListener(Object s, EncapsulatedEventListener eel) {
+        addEncapsulatedEventListener(s, eel, getSourceEventListenerInterfaces(s));
+    }
 
-	/**
-	 * <p>
-	 * Removes the listener eel from the source s, thus unregistering eel from
-	 * receiving encapsulated events for all the events that s emits.
-	 * Will throw IllegalArgumentException if s is not managed by this
-	 * EncapsulatedEventManager.
-	 * </p>
-	 *
-	 * @param s   the event source
-	 * @param eel the listener
-	 *
-	 * @throws IllegalArgumentException
-	 * @throws NullPointerException
-	 */
+    /**
+     * <p>
+     * Removes the listener eel from the source s, thus unregistering eel from
+     * receiving encapsulated events for all the events that s emits.
+     * Will throw IllegalArgumentException if s is not managed by this
+     * EncapsulatedEventManager.
+     * </p>
+     *
+     * @param s   the event source
+     * @param eel the listener
+     *
+     * @throws IllegalArgumentException
+     * @throws NullPointerException
+     */
 
-	@Override
-	public void removeEncapsulatedEventListener(Object s, EncapsulatedEventListener eel) {
-		removeEncapsulatedEventListener(s, eel, getSourceEventListenerInterfaces(s));
-	}
+    @Override
+    public void removeEncapsulatedEventListener(Object s, EncapsulatedEventListener eel) {
+        removeEncapsulatedEventListener(s, eel, getSourceEventListenerInterfaces(s));
+    }
 
-	/**
-	 * <p>
-	 * Adds the listener eel to the source s to receive the events enumerated
-	 * by lc that s emits. Will throw IllegalArgumentException if s is not
-	 * managed by this EncapsulatedEventManager or if lc contains a reference
-	 * to a Class that s does not emit events on.
-	 * </p>
-	 *
-	 * @param s   the event source
-	 * @param eel the listener
-	 * @param lc  the list of events to register the eel to receive.
-	 *
-	 * @throws IllegalArgumentException
-	 * @throws NullPointerException
-	 */
+    /**
+     * <p>
+     * Adds the listener eel to the source s to receive the events enumerated
+     * by lc that s emits. Will throw IllegalArgumentException if s is not
+     * managed by this EncapsulatedEventManager or if lc contains a reference
+     * to a Class that s does not emit events on.
+     * </p>
+     *
+     * @param s   the event source
+     * @param eel the listener
+     * @param lc  the list of events to register the eel to receive.
+     *
+     * @throws IllegalArgumentException
+     * @throws NullPointerException
+     */
 
-	@Override
-	public synchronized void addEncapsulatedEventListener(Object s,
-			EncapsulatedEventListener eel, Class[] lc) {
-		if (s == null)
-			throw new NullPointerException("Source");
-		if (eel == null)
-			throw new NullPointerException("Listener");
-		if (lc == null)
-			throw new NullPointerException("Interfaces");
+    @Override
+    public synchronized void addEncapsulatedEventListener(Object s,
+            EncapsulatedEventListener eel, Class<?>[] lc) {
+        if (s == null)
+            throw new NullPointerException("Source");
+        if (eel == null)
+            throw new NullPointerException("Listener");
+        if (lc == null)
+            throw new NullPointerException("Interfaces");
 
-		Hashtable interfaces = (Hashtable) sources.get(s);
+        Hashtable<Class<?>, EncapsulatedEventAdaptor> interfaces = sources.get(s);
 
-		if (interfaces == null)
-		{
-			interfaces = new Hashtable();
-			sources.put(s, interfaces);
-		}
+        if (interfaces == null)
+        {
+            interfaces = new Hashtable<>();
+            sources.put(s, interfaces);
+        }
 
-		for (Class element : lc)
-		{
-			EncapsulatedEventAdaptor eea
-					= (EncapsulatedEventAdaptor) interfaces.get(element);
+        for (Class<?> element : lc)
+        {
+            EncapsulatedEventAdaptor eea
+            = (EncapsulatedEventAdaptor) interfaces.get(element);
 
-			if (eea == null)
-			{ // its new
-				try
-				{
-					eea = EncapsulatedEventAdaptor.getEncapsulatedEventAdaptor(element,
-							s);
-				} catch (ClassNotFoundException cnfe)
-				{
-					System.err.println("Cant create adaptor class");
-				} catch (InstantiationException inste)
-				{
-					System.err.println("Cant instantiate adaptor");
-				} catch (IllegalAccessException iae)
-				{
-					System.err.println("illegal access");
-				} catch (IntrospectionException intre)
-				{
-					System.err.println("introspection error");
-				}
+            if (eea == null)
+            { // its new
+                try
+                {
+                    eea = EncapsulatedEventAdaptor.getEncapsulatedEventAdaptor(element,
+                            s);
+                } catch (ClassNotFoundException cnfe)
+                {
+                    System.err.println("Cant create adaptor class");
+                } catch (InstantiationException inste)
+                {
+                    System.err.println("Cant instantiate adaptor");
+                } catch (IllegalAccessException iae)
+                {
+                    System.err.println("illegal access");
+                } catch (IntrospectionException intre)
+                {
+                    System.err.println("introspection error");
+                }
 
-				if (eea != null)
-				{
-					synchronized (eea)
-					{
-						eea.addEncapsulatedEventListener(eel);
-					}
-					interfaces.put(element, eea);
+                if (eea != null)
+                {
+                    synchronized (eea)
+                    {
+                        eea.addEncapsulatedEventListener(eel);
+                    }
+                    interfaces.put(element, eea);
 
-					em.append("Listening to: " + element.getName() + " on: " + s + "\n");
-				} else
-				{
-					interfaces.put(element, null);
-				}
-			}
-		}
-	}
+                    em.append("Listening to: " + element.getName() + " on: " + s + "\n");
+                } else
+                {
+                    interfaces.put(element, null);
+                }
+            }
+        }
+    }
 
-	/**
-	 * <p>
-	 * Removes the listener eel from the source s, thus unregistering for
-	 * encapsulated events from s enumerated by lc. Will throw
-	 * IllegalArgumentException if s is not managed by this
-	 * EncapsulatedEventManager or if lc contains a reference
-	 * to a Class that s does not emit events on.
-	 * </p>
-	 *
-	 * @param s   the event source
-	 * @param eel the listener
-	 * @param lc  the list of events to unregister the eel from receiving.
-	 *
-	 * @throws IllegalArgumentException
-	 * @throws NullPointerException
-	 */
+    /**
+     * <p>
+     * Removes the listener eel from the source s, thus unregistering for
+     * encapsulated events from s enumerated by lc. Will throw
+     * IllegalArgumentException if s is not managed by this
+     * EncapsulatedEventManager or if lc contains a reference
+     * to a Class that s does not emit events on.
+     * </p>
+     *
+     * @param s   the event source
+     * @param eel the listener
+     * @param lc  the list of events to unregister the eel from receiving.
+     *
+     * @throws IllegalArgumentException
+     * @throws NullPointerException
+     */
 
-	@Override
-	public synchronized void removeEncapsulatedEventListener(Object s,
-			EncapsulatedEventListener eel, Class[] lc) {
+    @Override
+    public synchronized void removeEncapsulatedEventListener(Object s,
+            EncapsulatedEventListener eel, Class<?>[] lc) {
 
-		if (s == null)
-			throw new NullPointerException("Source");
-		if (eel == null)
-			throw new NullPointerException("Listener");
-		if (lc == null)
-			throw new NullPointerException("Interfaces");
+        if (s == null)
+            throw new NullPointerException("Source");
+        if (eel == null)
+            throw new NullPointerException("Listener");
+        if (lc == null)
+            throw new NullPointerException("Interfaces");
 
-		Hashtable interfaces = (Hashtable) sources.get(s);
+        Hashtable<Class<?>, EncapsulatedEventAdaptor> interfaces = sources.get(s);
 
-		if (interfaces == null)
-			throw new IllegalArgumentException("Source");
+        if (interfaces == null)
+            throw new IllegalArgumentException("Source");
 
-		for (Class element : lc)
-		{
-			EncapsulatedEventAdaptor eea
-					= (EncapsulatedEventAdaptor) interfaces.get(element);
+        for (Class<?> element : lc)
+        {
+            EncapsulatedEventAdaptor eea
+            = (EncapsulatedEventAdaptor) interfaces.get(element);
 
-			if (eea != null)
-			{
-				eea.removeEncapsulatedEventListener(eel);
+            if (eea != null)
+            {
+                eea.removeEncapsulatedEventListener(eel);
 
-				synchronized (eea)
-				{
-					if (eea.getEncapsulatedListenerCount() == 0)
-						try
-						{
-							eea.setSource(null);
-						} catch (Exception e)
-						{
-							System.err.println("failed to unregister source");
-						}
+                synchronized (eea)
+                {
+                    if (eea.getEncapsulatedListenerCount() == 0)
+                        try
+                    {
+                            eea.setSource(null);
+                    } catch (Exception e)
+                    {
+                        System.err.println("failed to unregister source");
+                    }
 
-					em.append("No longer listening to: " + element.getName() + " on: " + s
-							+ "\n");
-					interfaces.put(element, null);
-				}
-			}
-		}
-	}
+                    em.append("No longer listening to: " + element.getName() + " on: " + s
+                            + "\n");
+                    interfaces.put(element, null);
+                }
+            }
+        }
+    }
 
-	/**
-	 * <p>
-	 * The event handler logs the encapsulated Event to the text area.
-	 * </p>
-	 *
-	 * @param ee The Encapsulated Event
-	 */
+    /**
+     * <p>
+     * The event handler logs the encapsulated Event to the text area.
+     * </p>
+     *
+     * @param ee The Encapsulated Event
+     */
 
-	@Override
-	public void encapsulatedEvent(EncapsulatedEvent ee) {
-		Object s = ee.getEventSource();
-		EventObject eo = ee.getEvent();
+    @Override
+    public void encapsulatedEvent(EncapsulatedEvent ee) {
+        Object s = ee.getEventSource();
+        EventObject eo = ee.getEvent();
 
-		// log the event
+        // log the event
 
-		em.append(eventCnt++ + " Source: [" + s + "] Event: [" + eo + "]" + "\n");
-	}
+        em.append(eventCnt++ + " Source: [" + s + "] Event: [" + eo + "]" + "\n");
+    }
 }

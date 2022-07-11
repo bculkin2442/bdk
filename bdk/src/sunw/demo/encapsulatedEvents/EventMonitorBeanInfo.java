@@ -37,31 +37,31 @@ import java.lang.reflect.*;
 public final class EventMonitorBeanInfo extends SimpleBeanInfo
 {
 
-	/**
-	 * @return the public methods for the EventMonitor Bean
-	 */
+    /**
+     * @return the public methods for the EventMonitor Bean
+     */
 
-	@Override
-	public MethodDescriptor[] getMethodDescriptors() {
+    @Override
+    public MethodDescriptor[] getMethodDescriptors() {
 
-		// First find the "method" object.
-		Class args[] =
-		{
-				java.util.EventObject.class
-		};
-		Method m;
-		try
-		{
-			m = EventMonitor.class.getMethod("initiateEventSourceMonitoring", args);
-		} catch (Exception ex)
-		{
-			// "should never happen"
-			throw new Error("Missing method: " + ex);
-		}
+        // First find the "method" object.
+        Class<?> args[] =
+            {
+                    java.util.EventObject.class
+            };
+        Method m;
+        try
+        {
+            m = EventMonitor.class.getMethod("initiateEventSourceMonitoring", args);
+        } catch (Exception ex)
+        {
+            // "should never happen"
+            throw new Error("Missing method: " + ex);
+        }
 
-		// Now create the MethodDescriptor array:
-		MethodDescriptor result[] = new MethodDescriptor[1];
-		result[0] = new MethodDescriptor(m);
-		return result;
-	}
+        // Now create the MethodDescriptor array:
+        MethodDescriptor result[] = new MethodDescriptor[1];
+        result[0] = new MethodDescriptor(m);
+        return result;
+    }
 }

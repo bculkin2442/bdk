@@ -43,12 +43,12 @@ import java.util.*;
 public interface EncapsulatedEventListener extends EventListener
 {
 
-	/**
-	 * @param ee the encapsulated event from the dynamic adaptor.
-	 *
-	 * @throws EncapsulatedEventException.
-	 *
-	 */
+    /**
+     * @param ee the encapsulated event from the dynamic adaptor.
+     *
+     * @throws EncapsulatedEventException.
+     *
+     */
 
-	void encapsulatedEvent(EncapsulatedEvent ee) throws EncapsulatedEventException;
+    void encapsulatedEvent(EncapsulatedEvent ee) throws EncapsulatedEventException;
 }

@@ -5,38 +5,39 @@ import java.util.*;
 
 import sun.rmi.registry.*;
 
+@SuppressWarnings("restriction")
 class QuoteServerApp
 {
-	static final int registryPort = 2330;
-	static QuoteServerImpl server = null;
-	static RegistryImpl registry = null;
+    static final int registryPort = 2330;
+    static QuoteServerImpl server = null;
+    static RegistryImpl registry = null;
 
-	/**
-	 * Start a QuoteServer running and bind it to "QuoteServer"
-	 * in the RMI name registry on the local machine.
-	 */
-	public static void main(String args[]) {
-		Properties systemProps = System.getProperties();
-		systemProps.put("http.proxyHost", "webcache1.Eng");
-		systemProps.put("http.proxyPort", "8080");
+    /**
+     * Start a QuoteServer running and bind it to "QuoteServer"
+     * in the RMI name registry on the local machine.
+     */
+    public static void main(String args[]) {
+        Properties systemProps = System.getProperties();
+        systemProps.put("http.proxyHost", "webcache1.Eng");
+        systemProps.put("http.proxyPort", "8080");
 
-		QuoteServerApp app = new QuoteServerApp();
-		QuoteServerGUI gui = new QuoteServerGUI(app);
-		gui.show();
+        QuoteServerApp app = new QuoteServerApp();
+        QuoteServerGUI gui = new QuoteServerGUI(app);
+        gui.show();
 
-		try
-		{
-			registry = new RegistryImpl(registryPort);
-			server = new QuoteServerImpl();
-			registry.rebind("QuoteServer", server);
+        try
+        {
+            registry = new RegistryImpl(registryPort);
+            server = new QuoteServerImpl();
+            registry.rebind("QuoteServer", server);
 
-			gui.refreshAll();
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-			return;
-		}
+            gui.refreshAll();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            return;
+        }
 
-		gui.showStatus("Ready");
-	}
+        gui.showStatus("Ready");
+    }
 }

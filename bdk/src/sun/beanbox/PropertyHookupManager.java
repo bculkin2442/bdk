@@ -19,34 +19,34 @@ import sunw.beanbox.*;
 class PropertyHookupManager
 {
 
-	/**
-	 * Create a property hookup, so that a change to the named bound
-	 * property on the source object turns into a call on the "setter"
-	 * method of the given target object.
-	 */
+    /**
+     * Create a property hookup, so that a change to the named bound
+     * property on the source object turns into a call on the "setter"
+     * method of the given target object.
+     */
 
-	public synchronized static void attach(Wrapper sourceWrapper, String propertyName,
-			Method getter, Wrapper targetWrapper, Method setter) {
+    public synchronized static void attach(Wrapper sourceWrapper, String propertyName,
+            Method getter, Wrapper targetWrapper, Method setter) {
 
-		Object source = sourceWrapper.getBean();
-		Object targetObject = targetWrapper.getBean();
+        Object source = sourceWrapper.getBean();
+        Object targetObject = targetWrapper.getBean();
 
-		PropertyHookup hook = (PropertyHookup) instances.get(source);
-		if (hook == null)
-		{
-			// This is the first property hookup on this source object.
-			// Push a PropertyHookup adaptor onto the source.
-			hook = new PropertyHookup(source);
-			instances.put(source, hook);
-			// Register our listener object with the source Wrapper.
-			sourceWrapper.addEventTarget("propertyChange", null, hook);
-		}
+        PropertyHookup hook = (PropertyHookup) instances.get(source);
+        if (hook == null)
+        {
+            // This is the first property hookup on this source object.
+            // Push a PropertyHookup adaptor onto the source.
+            hook = new PropertyHookup(source);
+            instances.put(source, hook);
+            // Register our listener object with the source Wrapper.
+            sourceWrapper.addEventTarget("propertyChange", null, hook);
+        }
 
-		sourceWrapper.addPropertyTarget(propertyName, targetObject, setter);
-		hook.attach(source, propertyName, getter, targetObject, setter);
-	}
+        sourceWrapper.addPropertyTarget(propertyName, targetObject, setter);
+        hook.attach(source, propertyName, getter, targetObject, setter);
+    }
 
-	// This table maps from event sources to PropertyHookup objects.
-	private static Hashtable instances = new Hashtable();
+    // This table maps from event sources to PropertyHookup objects.
+    private static Hashtable<Object, PropertyHookup> instances = new Hashtable<>();
 
 }

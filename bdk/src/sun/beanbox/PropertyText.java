@@ -10,65 +10,65 @@ import java.beans.*;
 class PropertyText extends TextField implements KeyListener, FocusListener
 {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = -3066402778038954927L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -3066402778038954927L;
 
-	PropertyText(PropertyEditor pe)
-	{
-		super(pe.getAsText());
-		editor = pe;
-		addKeyListener(this);
-		addFocusListener(this);
-	}
+    PropertyText(PropertyEditor pe)
+    {
+        super(pe.getAsText());
+        editor = pe;
+        addKeyListener(this);
+        addFocusListener(this);
+    }
 
-	@Override
-	public void repaint() {
-		setText(editor.getAsText());
-	}
+    @Override
+    public void repaint() {
+        setText(editor.getAsText());
+    }
 
-	protected void updateEditor() {
-		try
-		{
-			editor.setAsText(getText());
-		} catch (IllegalArgumentException ex)
-		{
-			// Quietly ignore.
-		}
-	}
+    protected void updateEditor() {
+        try
+        {
+            editor.setAsText(getText());
+        } catch (IllegalArgumentException ex)
+        {
+            // Quietly ignore.
+        }
+    }
 
-	// ----------------------------------------------------------------------
-	// Focus listener methods.
+    // ----------------------------------------------------------------------
+    // Focus listener methods.
 
-	@Override
-	public void focusGained(FocusEvent e) {
-	}
+    @Override
+    public void focusGained(FocusEvent e) {
+    }
 
-	@Override
-	public void focusLost(FocusEvent e) {
-		updateEditor();
-	}
+    @Override
+    public void focusLost(FocusEvent e) {
+        updateEditor();
+    }
 
-	// ----------------------------------------------------------------------
-	// Keyboard listener methods.
+    // ----------------------------------------------------------------------
+    // Keyboard listener methods.
 
-	@Override
-	public void keyReleased(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_ENTER)
-		{
-			updateEditor();
-		}
-	}
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER)
+        {
+            updateEditor();
+        }
+    }
 
-	@Override
-	public void keyPressed(KeyEvent e) {
-	}
+    @Override
+    public void keyPressed(KeyEvent e) {
+    }
 
-	@Override
-	public void keyTyped(KeyEvent e) {
-	}
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
 
-	// ----------------------------------------------------------------------
-	private PropertyEditor editor;
+    // ----------------------------------------------------------------------
+    private PropertyEditor editor;
 }

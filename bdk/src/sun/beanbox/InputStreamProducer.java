@@ -12,5 +12,5 @@ import java.io.*;
 
 public interface InputStreamProducer
 {
-	InputStream getInputStream();
+    InputStream getInputStream();
 }

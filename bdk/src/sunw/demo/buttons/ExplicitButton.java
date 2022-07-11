@@ -12,9 +12,9 @@ package sunw.demo.buttons;
 public class ExplicitButton extends OurButton
 {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = -711627484722224534L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -711627484722224534L;
 
 }

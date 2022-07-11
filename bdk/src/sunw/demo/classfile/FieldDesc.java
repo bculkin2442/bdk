@@ -37,73 +37,73 @@ import java.io.*;
 final class FieldDesc
 {
 
-	final static short ACC_PUBLIC = 0x0001;
-	final static short ACC_PRIVATE = 0x0002;
-	final static short ACC_PROTECTED = 0x0004;
-	final static short ACC_STATIC = 0x0008;
-	final static short ACC_FINAL = 0x0010;
-	final static short ACC_VOLATILE = 0x0040;
-	final static short ACC_TRANSIENT = 0x0080;
+    final static short ACC_PUBLIC = 0x0001;
+    final static short ACC_PRIVATE = 0x0002;
+    final static short ACC_PROTECTED = 0x0004;
+    final static short ACC_STATIC = 0x0008;
+    final static short ACC_FINAL = 0x0010;
+    final static short ACC_VOLATILE = 0x0040;
+    final static short ACC_TRANSIENT = 0x0080;
 
-	private UTF8Constant name;
-	private UTF8Constant descriptor;
+    private UTF8Constant name;
+    private UTF8Constant descriptor;
 
-	private short accessFlags;
+    private short accessFlags;
 
-	private ClassFile classFile;
+    private ClassFile classFile;
 
-	private Attribute[] attributes;
+    private Attribute[] attributes;
 
-	/**
-	 * <p>
-	 * construct a descriptor for a field.
-	 * </p>
-	 *
-	 * @param field name
-	 * @param desc  its type descriptor
-	 * @param flags access flags
-	 * @param cf    the class file
-	 * @param attrs any associated attributes
-	 *
-	 */
+    /**
+     * <p>
+     * construct a descriptor for a field.
+     * </p>
+     *
+     * @param field name
+     * @param desc  its type descriptor
+     * @param flags access flags
+     * @param cf    the class file
+     * @param attrs any associated attributes
+     *
+     */
 
-	FieldDesc(String field, String desc, short flags, ClassFile cf, Attribute[] attrs)
-	{
-		super();
+    FieldDesc(String field, String desc, short flags, ClassFile cf, Attribute[] attrs)
+    {
+        super();
 
-		// we would validate here ...
+        // we would validate here ...
 
-		name = cf.addUTF8Constant(field);
-		descriptor = cf.addUTF8Constant(desc);
-		accessFlags = flags;
-		classFile = cf;
-		attributes = attrs;
-	}
+        name = cf.addUTF8Constant(field);
+        descriptor = cf.addUTF8Constant(desc);
+        accessFlags = flags;
+        classFile = cf;
+        attributes = attrs;
+    }
 
-	/**
-	 * <p>
-	 * write the field to the stream
-	 * </p>
-	 *
-	 * @param dos the output stream
-	 *
-	 * @throws IOException
-	 */
+    /**
+     * <p>
+     * write the field to the stream
+     * </p>
+     *
+     * @param dos the output stream
+     *
+     * @throws IOException
+     */
 
-	void write(DataOutputStream dos) throws IOException {
-		dos.writeShort(accessFlags);
-		dos.writeShort(name.getConstantPoolIndex());
-		dos.writeShort(descriptor.getConstantPoolIndex());
+    void write(DataOutputStream dos) throws IOException {
+        dos.writeShort(accessFlags);
+        dos.writeShort(name.getConstantPoolIndex());
+        dos.writeShort(descriptor.getConstantPoolIndex());
 
-		if (attributes != null && attributes.length == 0)
-		{
-			dos.writeShort(attributes.length);
+        if (attributes != null && attributes.length == 0)
+        {
+            dos.writeShort(attributes.length);
 
-			for (Attribute attribute : attributes)
-			{
-				attribute.write(dos);
-			}
-		} else
-			dos.writeShort(0);
-	}
+            for (Attribute attribute : attributes)
+            {
+                attribute.write(dos);
+            }
+        } else
+            dos.writeShort(0);
+    }
 }

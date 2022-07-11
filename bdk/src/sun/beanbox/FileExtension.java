@@ -9,15 +9,15 @@ import java.io.*;
 
 public class FileExtension implements FilenameFilter
 {
-	private String extension;
+    private String extension;
 
-	public FileExtension(String ext)
-	{
-		extension = ext;
-	}
+    public FileExtension(String ext)
+    {
+        extension = ext;
+    }
 
-	@Override
-	public boolean accept(File dir, String name) {
-		return name.endsWith(extension);
-	}
+    @Override
+    public boolean accept(File dir, String name) {
+        return name.endsWith(extension);
+    }
 }

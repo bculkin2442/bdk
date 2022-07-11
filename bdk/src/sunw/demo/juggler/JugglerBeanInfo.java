@@ -10,47 +10,47 @@ import java.beans.*;
 public class JugglerBeanInfo extends SimpleBeanInfo
 {
 
-	@Override
-	public java.awt.Image getIcon(int iconKind) {
-		if (iconKind == BeanInfo.ICON_COLOR_16x16)
-		{
-			java.awt.Image img = loadImage("JugglerIcon.gif");
-			return img;
-		}
-		return null;
-	}
+    @Override
+    public java.awt.Image getIcon(int iconKind) {
+        if (iconKind == BeanInfo.ICON_COLOR_16x16)
+        {
+            java.awt.Image img = loadImage("JugglerIcon.gif");
+            return img;
+        }
+        return null;
+    }
 
-	@Override
-	public PropertyDescriptor[] getPropertyDescriptors() {
-		try
-		{
-			PropertyDescriptor debug = new PropertyDescriptor("debug", beanClass);
+    @Override
+    public PropertyDescriptor[] getPropertyDescriptors() {
+        try
+        {
+            PropertyDescriptor debug = new PropertyDescriptor("debug", beanClass);
 
-			PropertyDescriptor animationRate
-					= new PropertyDescriptor("animationRate", beanClass);
+            PropertyDescriptor animationRate
+            = new PropertyDescriptor("animationRate", beanClass);
 
-			PropertyDescriptor name = new PropertyDescriptor("name", beanClass);
+            PropertyDescriptor name = new PropertyDescriptor("name", beanClass);
 
-			debug.setBound(true);
-			animationRate.setBound(true);
-			name.setBound(true);
+            debug.setBound(true);
+            animationRate.setBound(true);
+            name.setBound(true);
 
-			PropertyDescriptor rv[] =
-			{
-					debug, animationRate, name
-			};
-			return rv;
-		} catch (IntrospectionException e)
-		{
-			throw new Error(e.toString());
-		}
-	}
+            PropertyDescriptor rv[] =
+                {
+                        debug, animationRate, name
+                };
+            return rv;
+        } catch (IntrospectionException e)
+        {
+            throw new Error(e.toString());
+        }
+    }
 
-	@Override
-	public int getDefaultPropertyIndex() {
-		// the index for the animationRate property.
-		return 1;
-	}
+    @Override
+    public int getDefaultPropertyIndex() {
+        // the index for the animationRate property.
+        return 1;
+    }
 
-	private final static Class beanClass = Juggler.class;
+    private final static Class<?> beanClass = Juggler.class;
 }

@@ -12,11 +12,11 @@ import java.rmi.*;
 
 public interface QuoteServer extends Remote
 {
-	void addQuoteListener(QuoteListener x) throws RemoteException;
+    void addQuoteListener(QuoteListener x) throws RemoteException;
 
-	void removeQuoteListener(QuoteListener x) throws RemoteException;
+    void removeQuoteListener(QuoteListener x) throws RemoteException;
 
-	HttpProxy getHttpProxy() throws RemoteException;
+    HttpProxy getHttpProxy() throws RemoteException;
 
-	void setHttpProxy(HttpProxy x) throws RemoteException;
+    void setHttpProxy(HttpProxy x) throws RemoteException;
 }

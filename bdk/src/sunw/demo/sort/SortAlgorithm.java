@@ -35,80 +35,80 @@ package sunw.demo.sort;
  * SortAlgorithm.java, Thu Oct 27 10:32:35 1994
  *
  * @author James Gosling
- * 
+ *
  * @version 1.6f, 31 Jan 1995
  */
 
 class SortAlgorithm
 {
-	/**
-	 * The sort item.
-	 */
-	private SortItem parent;
+    /**
+     * The sort item.
+     */
+    private SortItem parent;
 
-	/**
-	 * When true stop sorting.
-	 */
-	protected boolean stopRequested = false;
+    /**
+     * When true stop sorting.
+     */
+    protected boolean stopRequested = false;
 
-	/**
-	 * Set the parent.
-	 */
-	public void setParent(SortItem p) {
-		parent = p;
-	}
+    /**
+     * Set the parent.
+     */
+    public void setParent(SortItem p) {
+        parent = p;
+    }
 
-	/**
-	 * Pause for a while.
-	 */
-	protected void pause() throws Exception {
-		if (stopRequested)
-		{
-			throw new Exception("Sort Algorithm");
-		}
-		parent.pause(parent.h1, parent.h2);
-	}
+    /**
+     * Pause for a while.
+     */
+    protected void pause() throws Exception {
+        if (stopRequested)
+        {
+            throw new Exception("Sort Algorithm");
+        }
+        parent.pause(parent.h1, parent.h2);
+    }
 
-	/**
-	 * Pause for a while and mark item 1.
-	 */
-	protected void pause(int H1) throws Exception {
-		if (stopRequested)
-		{
-			throw new Exception("Sort Algorithm");
-		}
-		parent.pause(H1, parent.h2);
-	}
+    /**
+     * Pause for a while and mark item 1.
+     */
+    protected void pause(int H1) throws Exception {
+        if (stopRequested)
+        {
+            throw new Exception("Sort Algorithm");
+        }
+        parent.pause(H1, parent.h2);
+    }
 
-	/**
-	 * Pause for a while and mark item 1 & 2.
-	 */
-	protected void pause(int H1, int H2) throws Exception {
-		if (stopRequested)
-		{
-			throw new Exception("Sort Algorithm");
-		}
-		parent.pause(H1, H2);
-	}
+    /**
+     * Pause for a while and mark item 1 & 2.
+     */
+    protected void pause(int H1, int H2) throws Exception {
+        if (stopRequested)
+        {
+            throw new Exception("Sort Algorithm");
+        }
+        parent.pause(H1, H2);
+    }
 
-	/**
-	 * Stop sorting.
-	 */
-	public void stop() {
-		stopRequested = true;
-	}
+    /**
+     * Stop sorting.
+     */
+    public void stop() {
+        stopRequested = true;
+    }
 
-	/**
-	 * Initialize
-	 */
-	public void init() {
-		stopRequested = false;
-	}
+    /**
+     * Initialize
+     */
+    public void init() {
+        stopRequested = false;
+    }
 
-	/**
-	 * This method will be called to
-	 * sort an array of integers.
-	 */
-	void sort(int a[]) throws Exception {
-	}
+    /**
+     * This method will be called to
+     * sort an array of integers.
+     */
+    void sort(int a[]) throws Exception {
+    }
 }

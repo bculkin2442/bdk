@@ -7,35 +7,35 @@ package sunw.demo.test;
 public class BridgeTesterEvent extends java.util.EventObject
 {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 4187448982512585673L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4187448982512585673L;
 
-	BridgeTesterEvent(Object source, String stringValue, int intValue)
-	{
-		super(source);
-		this.stringValue = stringValue;
-		this.intValue = intValue;
-	}
+    BridgeTesterEvent(Object source, String stringValue, int intValue)
+    {
+        super(source);
+        this.stringValue = stringValue;
+        this.intValue = intValue;
+    }
 
-	public void setInformationValue(String stringValue) {
-		this.stringValue = stringValue;
-	}
+    public void setInformationValue(String stringValue) {
+        this.stringValue = stringValue;
+    }
 
-	public void setIntValue(int intValue) {
-		this.intValue = intValue;
-	}
+    public void setIntValue(int intValue) {
+        this.intValue = intValue;
+    }
 
-	public String getInformation() {
-		return stringValue;
-	}
+    public String getInformation() {
+        return stringValue;
+    }
 
-	public int getIntValue() {
-		return intValue;
-	}
+    public int getIntValue() {
+        return intValue;
+    }
 
-	// READ-WRITE PARMS...
-	protected String stringValue;
-	protected int intValue;
+    // READ-WRITE PARMS...
+    protected String stringValue;
+    protected int intValue;
 }

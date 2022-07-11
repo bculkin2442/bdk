@@ -36,86 +36,86 @@ import java.io.*;
 class RefConstant extends ConstantPoolEntry
 {
 
-	private ClassConstant clazz;
-	private NameAndTypeConstant nandt;
+    private ClassConstant clazz;
+    private NameAndTypeConstant nandt;
 
-	/**
-	 * <p>
-	 * construct a CPE
-	 * </p>
-	 *
-	 * @param t     the CPE tag value
-	 * @param cName the class name
-	 * @param nName the name of the referenced field or method
-	 * @param tName the type descriptor of the field or method
-	 * @param cf    the class file
-	 *
-	 */
+    /**
+     * <p>
+     * construct a CPE
+     * </p>
+     *
+     * @param t     the CPE tag value
+     * @param cName the class name
+     * @param nName the name of the referenced field or method
+     * @param tName the type descriptor of the field or method
+     * @param cf    the class file
+     *
+     */
 
-	protected RefConstant(byte t, String cName, String nName, String tName, ClassFile cf)
-	{
-		super(t, cf);
+    protected RefConstant(byte t, String cName, String nName, String tName, ClassFile cf)
+    {
+        super(t, cf);
 
-		clazz = new ClassConstant(cName, cf);
-		nandt = new NameAndTypeConstant(nName, tName, cf);
+        clazz = new ClassConstant(cName, cf);
+        nandt = new NameAndTypeConstant(nName, tName, cf);
 
-		addToConstantPool();
-	}
+        addToConstantPool();
+    }
 
-	/**
-	 * <p>
-	 * write the referenced object to the stream
-	 * </p>
-	 *
-	 * @param dos the output stream
-	 *
-	 * @throws IOException
-	 */
+    /**
+     * <p>
+     * write the referenced object to the stream
+     * </p>
+     *
+     * @param dos the output stream
+     *
+     * @throws IOException
+     */
 
-	@Override
-	void write(DataOutputStream dos) throws IOException {
-		dos.writeByte(getTag());
-		dos.writeShort(clazz.getConstantPoolIndex());
-		dos.writeShort(nandt.getConstantPoolIndex());
-	}
+    @Override
+    void write(DataOutputStream dos) throws IOException {
+        dos.writeByte(getTag());
+        dos.writeShort(clazz.getConstantPoolIndex());
+        dos.writeShort(nandt.getConstantPoolIndex());
+    }
 
-	/**
-	 * @return the class constant for the referenced object
-	 */
+    /**
+     * @return the class constant for the referenced object
+     */
 
-	ClassConstant getClassObject() {
-		return clazz;
-	}
+    ClassConstant getClassObject() {
+        return clazz;
+    }
 
-	/**
-	 * @return the name and type CPE for the referenced object
-	 */
+    /**
+     * @return the name and type CPE for the referenced object
+     */
 
-	NameAndTypeConstant getNameAndType() {
-		return nandt;
-	}
+    NameAndTypeConstant getNameAndType() {
+        return nandt;
+    }
 
-	/**
-	 * @return object equality
-	 */
+    /**
+     * @return object equality
+     */
 
-	@Override
-	public boolean equals(Object o) {
-		if (o instanceof RefConstant)
-		{
-			RefConstant rc = (RefConstant) o;
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof RefConstant)
+        {
+            RefConstant rc = (RefConstant) o;
 
-			return clazz.equals(rc.clazz) && nandt.equals(rc.nandt);
-		}
+            return clazz.equals(rc.clazz) && nandt.equals(rc.nandt);
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	/**
-	 * @return a hashcode for the object.
-	 */
-	@Override
-	public int hashCode() {
-		return clazz.hashCode() + nandt.hashCode();
-	}
+    /**
+     * @return a hashcode for the object.
+     */
+    @Override
+    public int hashCode() {
+        return clazz.hashCode() + nandt.hashCode();
+    }
 }

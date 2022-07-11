@@ -35,74 +35,74 @@ import java.io.*;
 class LongConstant extends ConstantPoolEntry
 {
 
-	private long longish;
+    private long longish;
 
-	/**
-	 * <p>
-	 * construct a CONSTANT_LONG
-	 * </p>
-	 *
-	 * @param l  the long constant
-	 * @param cf the class file
-	 */
+    /**
+     * <p>
+     * construct a CONSTANT_LONG
+     * </p>
+     *
+     * @param l  the long constant
+     * @param cf the class file
+     */
 
-	LongConstant(long l, ClassFile cf)
-	{
-		super(CONSTANT_LONG, cf);
+    LongConstant(long l, ClassFile cf)
+    {
+        super(CONSTANT_LONG, cf);
 
-		longish = l;
+        longish = l;
 
-		addToConstantPool();
-	}
+        addToConstantPool();
+    }
 
-	/**
-	 * <p>
-	 * write the CONSTANT_LONG to the stream
-	 * </p>
-	 *
-	 * @param dos the output stream
-	 *
-	 * @throws IOException
-	 */
+    /**
+     * <p>
+     * write the CONSTANT_LONG to the stream
+     * </p>
+     *
+     * @param dos the output stream
+     *
+     * @throws IOException
+     */
 
-	@Override
-	void write(DataOutputStream dos) throws IOException {
-		dos.writeByte(getTag());
-		dos.writeLong(longish);
-	}
+    @Override
+    void write(DataOutputStream dos) throws IOException {
+        dos.writeByte(getTag());
+        dos.writeLong(longish);
+    }
 
-	/**
-	 * @return the long constant value
-	 */
+    /**
+     * @return the long constant value
+     */
 
-	long getValue() {
-		return longish;
-	}
+    long getValue() {
+        return longish;
+    }
 
-	/**
-	 * @return object equality
-	 */
+    /**
+     * @return object equality
+     */
 
-	@Override
-	public boolean equals(Object o) {
-		if (o instanceof Long)
-		{
-			return longish == ((Long) o).longValue();
-		} else if (o instanceof LongConstant)
-		{
-			LongConstant lc = (LongConstant) o;
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Long)
+        {
+            return longish == ((Long) o).longValue();
+        } else if (o instanceof LongConstant)
+        {
+            LongConstant lc = (LongConstant) o;
 
-			return longish == lc.getValue();
-		}
+            return longish == lc.getValue();
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	/**
-	 * @return a hashcode for the object.
-	 */
-	@Override
-	public int hashCode() {
-		return (int) longish;
-	}
+    /**
+     * @return a hashcode for the object.
+     */
+    @Override
+    public int hashCode() {
+        return (int) longish;
+    }
 }

@@ -36,149 +36,149 @@ import java.io.*;
 class ConstantValue extends Attribute
 {
 
-	private ConstantPoolEntry constant;
+    private ConstantPoolEntry constant;
 
-	/**
-	 * <p>
-	 * construct an Attribute describing a Constant
-	 * </p>
-	 *
-	 * @param cf  the class file
-	 * @param cpe the cpe of the constant
-	 */
+    /**
+     * <p>
+     * construct an Attribute describing a Constant
+     * </p>
+     *
+     * @param cf  the class file
+     * @param cpe the cpe of the constant
+     */
 
-	private ConstantValue(ClassFile cf, ConstantPoolEntry cpe)
-	{
-		super(Attribute.CONSTANTVALUE, cf);
-		constant = cpe;
-	}
+    private ConstantValue(ClassFile cf, ConstantPoolEntry cpe)
+    {
+        super(Attribute.CONSTANTVALUE, cf);
+        constant = cpe;
+    }
 
-	/**
-	 * <p>
-	 * Integer Constant
-	 * </p>
-	 *
-	 * @param cf the class file
-	 * @param ic the Integer Constant
-	 */
+    /**
+     * <p>
+     * Integer Constant
+     * </p>
+     *
+     * @param cf the class file
+     * @param ic the Integer Constant
+     */
 
-	ConstantValue(ClassFile cf, IntegerConstant ic)
-	{
-		this(cf, (ConstantPoolEntry) ic);
-	}
+    ConstantValue(ClassFile cf, IntegerConstant ic)
+    {
+        this(cf, (ConstantPoolEntry) ic);
+    }
 
-	/**
-	 * <p>
-	 * Long Constant
-	 * </p>
-	 *
-	 * @param cf the class file
-	 * @param lc the Long Constant
-	 */
+    /**
+     * <p>
+     * Long Constant
+     * </p>
+     *
+     * @param cf the class file
+     * @param lc the Long Constant
+     */
 
-	ConstantValue(ClassFile cf, LongConstant lc)
-	{
-		this(cf, (ConstantPoolEntry) lc);
-	}
+    ConstantValue(ClassFile cf, LongConstant lc)
+    {
+        this(cf, (ConstantPoolEntry) lc);
+    }
 
-	/**
-	 * <p>
-	 * Float Constant
-	 * </p>
-	 *
-	 * @param cf the class file
-	 * @param fc the Float Constant
-	 */
+    /**
+     * <p>
+     * Float Constant
+     * </p>
+     *
+     * @param cf the class file
+     * @param fc the Float Constant
+     */
 
-	ConstantValue(ClassFile cf, FloatConstant fc)
-	{
-		this(cf, (ConstantPoolEntry) fc);
-	}
+    ConstantValue(ClassFile cf, FloatConstant fc)
+    {
+        this(cf, (ConstantPoolEntry) fc);
+    }
 
-	/**
-	 * <p>
-	 * Double Constant
-	 * </p>
-	 *
-	 * @param cf the class file
-	 * @param dc the Double Constant
-	 */
+    /**
+     * <p>
+     * Double Constant
+     * </p>
+     *
+     * @param cf the class file
+     * @param dc the Double Constant
+     */
 
-	ConstantValue(ClassFile cf, DoubleConstant dc)
-	{
-		this(cf, (ConstantPoolEntry) dc);
-	}
+    ConstantValue(ClassFile cf, DoubleConstant dc)
+    {
+        this(cf, (ConstantPoolEntry) dc);
+    }
 
-	/**
-	 * <p>
-	 * String Constant
-	 * </p>
-	 *
-	 * @param cf the class file
-	 * @param sc the String Constant
-	 */
+    /**
+     * <p>
+     * String Constant
+     * </p>
+     *
+     * @param cf the class file
+     * @param sc the String Constant
+     */
 
-	ConstantValue(ClassFile cf, StringConstant sc)
-	{
-		this(cf, (ConstantPoolEntry) sc);
-	}
+    ConstantValue(ClassFile cf, StringConstant sc)
+    {
+        this(cf, (ConstantPoolEntry) sc);
+    }
 
-	/**
-	 * @return the length of this ConstantValue Attribute (minus header)
-	 */
+    /**
+     * @return the length of this ConstantValue Attribute (minus header)
+     */
 
-	@Override
-	int getLength() {
-		return 2;
-	}
+    @Override
+    int getLength() {
+        return 2;
+    }
 
-	/**
-	 * @return the CPE of the constant represented
-	 */
+    /**
+     * @return the CPE of the constant represented
+     */
 
-	ConstantPoolEntry getConstant() {
-		return constant;
-	}
+    ConstantPoolEntry getConstant() {
+        return constant;
+    }
 
-	/**
-	 * @return the CPE type tag of the constant represented
-	 */
+    /**
+     * @return the CPE type tag of the constant represented
+     */
 
-	byte getConstantTag() {
-		return constant.getTag();
-	}
+    byte getConstantTag() {
+        return constant.getTag();
+    }
 
-	/**
-	 * <p>
-	 * write the Attribute to the stream
-	 * </p>
-	 *
-	 * @param dos the output stream
-	 *
-	 * @throws IOException
-	 */
+    /**
+     * <p>
+     * write the Attribute to the stream
+     * </p>
+     *
+     * @param dos the output stream
+     *
+     * @throws IOException
+     */
 
-	@Override
-	void write(DataOutputStream dos) throws IOException {
-		dos.writeShort(getNameConstantPoolIndex());
-		dos.writeInt(getLength());
-		dos.writeShort(constant.getConstantPoolIndex());
-	}
+    @Override
+    void write(DataOutputStream dos) throws IOException {
+        dos.writeShort(getNameConstantPoolIndex());
+        dos.writeInt(getLength());
+        dos.writeShort(constant.getConstantPoolIndex());
+    }
 
-	/**
-	 * @return the objects equality.
-	 */
+    /**
+     * @return the objects equality.
+     */
 
-	@Override
-	public boolean equals(Object o) {
-		return constant.equals(o);
-	}
+    @Override
+    public boolean equals(Object o) {
+        return constant.equals(o);
+    }
 
-	/**
-	 * @return a hashcode for the object.
-	 */
-	@Override
-	public int hashCode() {
-		return constant.hashCode();
-	}
+    /**
+     * @return a hashcode for the object.
+     */
+    @Override
+    public int hashCode() {
+        return constant.hashCode();
+    }
 }

@@ -29,99 +29,99 @@ import java.io.*;
 class ClassConstant extends ConstantPoolEntry
 {
 
-	private UTF8Constant name;
+    private UTF8Constant name;
 
-	/**
-	 * <p>
-	 * Construct a CONSTANT_CLASS constant pool entry
-	 * </p>
-	 */
+    /**
+     * <p>
+     * Construct a CONSTANT_CLASS constant pool entry
+     * </p>
+     */
 
-	ClassConstant(String className, ClassFile cf)
-	{
-		super(CONSTANT_CLASS, cf);
+    ClassConstant(String className, ClassFile cf)
+    {
+        super(CONSTANT_CLASS, cf);
 
-		name = cf.addUTF8Constant(ClassFile.fullyQualifiedForm(className));
+        name = cf.addUTF8Constant(ClassFile.fullyQualifiedForm(className));
 
-		addToConstantPool();
-	}
+        addToConstantPool();
+    }
 
-	/**
-	 * <p>
-	 * write the CONSTANT_CLASS to the stream
-	 * </p>
-	 *
-	 * @param dos the stream.
-	 *
-	 * @throws IOException
-	 */
+    /**
+     * <p>
+     * write the CONSTANT_CLASS to the stream
+     * </p>
+     *
+     * @param dos the stream.
+     *
+     * @throws IOException
+     */
 
-	@Override
-	void write(DataOutputStream dos) throws IOException {
+    @Override
+    void write(DataOutputStream dos) throws IOException {
 
-		if (debug())
-		{
-			System.err.println(
-					getConstantPoolIndex() + " CLASS: " + name.getConstantPoolIndex());
-		}
+        if (debug())
+        {
+            System.err.println(
+                    getConstantPoolIndex() + " CLASS: " + name.getConstantPoolIndex());
+        }
 
-		dos.writeByte(getTag());
-		dos.writeShort(name.getConstantPoolIndex());
-	}
+        dos.writeByte(getTag());
+        dos.writeShort(name.getConstantPoolIndex());
+    }
 
-	/**
-	 * <p>
-	 * return the class represented by the CONSTANT_CLASS
-	 * </p>
-	 *
-	 * @return the name of the class
-	 */
+    /**
+     * <p>
+     * return the class represented by the CONSTANT_CLASS
+     * </p>
+     *
+     * @return the name of the class
+     */
 
-	String getClassName() {
-		return name.getString();
-	}
+    String getClassName() {
+        return name.getString();
+    }
 
-	/**
-	 * <p>
-	 * returns the Class object for the class represented by the constant.
-	 * </p>
-	 *
-	 * @return The java.lang.Class object for the class.
-	 */
+    /**
+     * <p>
+     * returns the Class object for the class represented by the constant.
+     * </p>
+     *
+     * @return The java.lang.Class object for the class.
+     */
 
-	Class getClassObject() throws ClassNotFoundException {
-		return Class.forName(name.getString());
-	}
+    Class<?> getClassObject() throws ClassNotFoundException {
+        return Class.forName(name.getString());
+    }
 
-	/**
-	 * <p>
-	 * compare the object, by name or value.
-	 * </p>
-	 * 
-	 * @param the object for comparison
-	 * 
-	 * @return object equality.
-	 */
+    /**
+     * <p>
+     * compare the object, by name or value.
+     * </p>
+     *
+     * @param the object for comparison
+     *
+     * @return object equality.
+     */
 
-	@Override
-	public boolean equals(Object o) {
-		if (o == null)
-			return false;
+    @Override
+    public boolean equals(Object o) {
+        if (o == null)
+            return false;
 
-		if (o instanceof ClassConstant)
-		{
-			ClassConstant cc = (ClassConstant) o;
-			return name.equals(cc.name);
-		}
+        if (o instanceof ClassConstant)
+        {
+            ClassConstant cc = (ClassConstant) o;
+            return name.equals(cc.name);
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	/**
-	 * @return a hashcode for the object.
-	 */
-	@Override
-	public int hashCode() {
-		return name.getString().hashCode();
-	}
+    /**
+     * @return a hashcode for the object.
+     */
+    @Override
+    public int hashCode() {
+        return name.getString().hashCode();
+    }
 }

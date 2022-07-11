@@ -15,56 +15,56 @@ import java.util.*;
 
 public class QuoteEvent extends EventObject
 {
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 8269488074285996741L;
-	private String symbol;
-	private Date date;
-	private double price;
-	private double bid;
-	private double ask;
-	private double open;
-	private long volume;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 8269488074285996741L;
+    private String symbol;
+    private Date date;
+    private double price;
+    private double bid;
+    private double ask;
+    private double open;
+    private long volume;
 
-	QuoteEvent(QuoteServer source, String symbol, Date date, double price, double bid,
-			double ask, double open, long volume)
-	{
-		super(source);
-		this.symbol = symbol;
-		this.date = date;
-		this.price = price;
-		this.bid = bid;
-		this.ask = ask;
-		this.open = open;
-		this.volume = volume;
-	}
+    QuoteEvent(QuoteServer source, String symbol, Date date, double price, double bid,
+            double ask, double open, long volume)
+    {
+        super(source);
+        this.symbol = symbol;
+        this.date = date;
+        this.price = price;
+        this.bid = bid;
+        this.ask = ask;
+        this.open = open;
+        this.volume = volume;
+    }
 
-	public String getSymbol() {
-		return symbol;
-	}
+    public String getSymbol() {
+        return symbol;
+    }
 
-	public Date getDate() {
-		return date;
-	}
+    public Date getDate() {
+        return date;
+    }
 
-	public double getPrice() {
-		return price;
-	}
+    public double getPrice() {
+        return price;
+    }
 
-	public double getBid() {
-		return bid;
-	}
+    public double getBid() {
+        return bid;
+    }
 
-	public double getAsk() {
-		return ask;
-	}
+    public double getAsk() {
+        return ask;
+    }
 
-	public double getOpen() {
-		return open;
-	}
+    public double getOpen() {
+        return open;
+    }
 
-	public long getVolume() {
-		return volume;
-	}
+    public long getVolume() {
+        return volume;
+    }
 }

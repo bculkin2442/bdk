@@ -33,20 +33,20 @@ package sunw.demo.classfile;
 class InterfaceMethodConstant extends RefConstant
 {
 
-	/**
-	 * <p>
-	 * construct a CONSTANT_INTERFACEMETHODREF
-	 * </p>
-	 *
-	 * @param cName name of interface
-	 * @param nName name of method
-	 * @param tName method type descriptor
-	 * @param cf    class file
-	 *
-	 */
+    /**
+     * <p>
+     * construct a CONSTANT_INTERFACEMETHODREF
+     * </p>
+     *
+     * @param cName name of interface
+     * @param nName name of method
+     * @param tName method type descriptor
+     * @param cf    class file
+     *
+     */
 
-	InterfaceMethodConstant(String cName, String nName, String tName, ClassFile cf)
-	{
-		super(CONSTANT_INTERFACEMETHODREF, cName, nName, tName, cf);
-	}
+    InterfaceMethodConstant(String cName, String nName, String tName, ClassFile cf)
+    {
+        super(CONSTANT_INTERFACEMETHODREF, cName, nName, tName, cf);
+    }
 }

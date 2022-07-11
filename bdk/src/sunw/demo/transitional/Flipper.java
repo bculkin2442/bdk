@@ -13,51 +13,51 @@ import java.awt.*;
 public class Flipper extends java.applet.Applet implements ButtonPushListener
 {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 4576838731818020006L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4576838731818020006L;
 
-	@Override
-	public void init() {
+    @Override
+    public void init() {
 
-		// We do our own hand layout.
-		setLayout(null);
+        // We do our own hand layout.
+        setLayout(null);
 
-		// Create a TransitionalBean.
-		jb = new TransitionalBean();
-		jb.setColor(firstColor);
-		add(jb);
-		jb.reshape(250, 25, 100, 40);
+        // Create a TransitionalBean.
+        jb = new TransitionalBean();
+        jb.setColor(firstColor);
+        add(jb);
+        jb.reshape(250, 25, 100, 40);
 
-		// Create a button.
-		btn = new OurButton();
-		btn.setLabel("flip");
-		add(btn);
-		btn.reshape(100, 30, 100, 30);
+        // Create a button.
+        btn = new OurButton();
+        btn.setLabel("flip");
+        add(btn);
+        btn.reshape(100, 30, 100, 30);
 
-		// Add ourself as an event handler object for button pushes.
-		btn.addButtonPushListener(this);
-	}
+        // Add ourself as an event handler object for button pushes.
+        btn.addButtonPushListener(this);
+    }
 
-	/**
-	 * This methods catches a button push event and uses it to
-	 * flip the color off our TransitionalBean between two choices.
-	 */
+    /**
+     * This methods catches a button push event and uses it to
+     * flip the color off our TransitionalBean between two choices.
+     */
 
-	@Override
-	public void push(ButtonPushEvent evt) {
-		if (jb.getColor() == firstColor)
-		{
-			jb.setColor(secondColor);
-		} else
-		{
-			jb.setColor(firstColor);
-		}
-	}
+    @Override
+    public void push(ButtonPushEvent evt) {
+        if (jb.getColor() == firstColor)
+        {
+            jb.setColor(secondColor);
+        } else
+        {
+            jb.setColor(firstColor);
+        }
+    }
 
-	private Color firstColor = Color.green;
-	private Color secondColor = Color.blue;
-	private TransitionalBean jb;
-	private OurButton btn;
+    private Color firstColor = Color.green;
+    private Color secondColor = Color.blue;
+    private TransitionalBean jb;
+    private OurButton btn;
 }

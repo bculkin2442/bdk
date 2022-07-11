@@ -7,11 +7,11 @@ package sunw.demo.test;
 public interface BridgeTesterListener extends java.util.EventListener
 {
 
-	void eventNumber1(BridgeTesterEvent ble);
+    void eventNumber1(BridgeTesterEvent ble);
 
-	void eventNumber2(String e);
+    void eventNumber2(String e);
 
-	void eventNumber3(short s);
+    void eventNumber3(short s);
 
-	void eventNumber4(int[] intArray);
+    void eventNumber4(int[] intArray);
 }

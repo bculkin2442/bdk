@@ -10,6 +10,6 @@ import java.util.*;
 public interface ButtonPushListener extends EventListener
 {
 
-	public void push(ButtonPushEvent e);
+    public void push(ButtonPushEvent e);
 
 }

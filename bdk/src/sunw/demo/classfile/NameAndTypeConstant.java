@@ -35,91 +35,91 @@ import java.io.*;
 class NameAndTypeConstant extends ConstantPoolEntry
 {
 
-	private UTF8Constant name;
-	private UTF8Constant desc;
+    private UTF8Constant name;
+    private UTF8Constant desc;
 
-	/**
-	 * <p>
-	 * construct a CONSTANT_NAMEANDTYPE CPE
-	 * </p>
-	 *
-	 * @param n  the name
-	 * @param d  the type
-	 * @param cf the class file
-	 */
+    /**
+     * <p>
+     * construct a CONSTANT_NAMEANDTYPE CPE
+     * </p>
+     *
+     * @param n  the name
+     * @param d  the type
+     * @param cf the class file
+     */
 
-	NameAndTypeConstant(String n, String d, ClassFile cf)
-	{
-		super(CONSTANT_NAMEANDTYPE, cf);
+    NameAndTypeConstant(String n, String d, ClassFile cf)
+    {
+        super(CONSTANT_NAMEANDTYPE, cf);
 
-		name = new UTF8Constant(n, cf);
-		desc = new UTF8Constant(d, cf);
+        name = new UTF8Constant(n, cf);
+        desc = new UTF8Constant(d, cf);
 
-		addToConstantPool();
-	}
+        addToConstantPool();
+    }
 
-	/**
-	 * <p>
-	 * write the CPE to the stream
-	 * </p>
-	 *
-	 * @param dos the output stream
-	 *
-	 * @throws IOException
-	 */
+    /**
+     * <p>
+     * write the CPE to the stream
+     * </p>
+     *
+     * @param dos the output stream
+     *
+     * @throws IOException
+     */
 
-	@Override
-	void write(DataOutputStream dos) throws IOException {
+    @Override
+    void write(DataOutputStream dos) throws IOException {
 
-		if (debug())
-		{
-			System.err.println(
-					getConstantPoolIndex() + " NAME: " + name.getConstantPoolIndex()
-							+ " TYPE: " + desc.getConstantPoolIndex());
-		}
+        if (debug())
+        {
+            System.err.println(
+                    getConstantPoolIndex() + " NAME: " + name.getConstantPoolIndex()
+                    + " TYPE: " + desc.getConstantPoolIndex());
+        }
 
-		dos.writeByte(getTag());
-		dos.writeShort(name.getConstantPoolIndex());
-		dos.writeShort(desc.getConstantPoolIndex());
-	}
+        dos.writeByte(getTag());
+        dos.writeShort(name.getConstantPoolIndex());
+        dos.writeShort(desc.getConstantPoolIndex());
+    }
 
-	/**
-	 * @return the name string
-	 */
+    /**
+     * @return the name string
+     */
 
-	String getName() {
-		return name.getString();
-	}
+    String getName() {
+        return name.getString();
+    }
 
-	/**
-	 * @return the type descriptor string
-	 */
+    /**
+     * @return the type descriptor string
+     */
 
-	String getDescriptor() {
-		return desc.getString();
-	}
+    String getDescriptor() {
+        return desc.getString();
+    }
 
-	/**
-	 * @return object equality
-	 */
+    /**
+     * @return object equality
+     */
 
-	@Override
-	public boolean equals(Object o) {
-		if (o instanceof NameAndTypeConstant)
-		{
-			NameAndTypeConstant nandt = (NameAndTypeConstant) o;
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof NameAndTypeConstant)
+        {
+            NameAndTypeConstant nandt = (NameAndTypeConstant) o;
 
-			return name.equals(nandt.name) && desc.equals(nandt.desc);
-		}
+            return name.equals(nandt.name) && desc.equals(nandt.desc);
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	/**
-	 * @return a hashcode for the object.
-	 */
-	@Override
-	public int hashCode() {
-		return name.hashCode() + desc.hashCode();
-	}
+    /**
+     * @return a hashcode for the object.
+     */
+    @Override
+    public int hashCode() {
+        return name.hashCode() + desc.hashCode();
+    }
 }

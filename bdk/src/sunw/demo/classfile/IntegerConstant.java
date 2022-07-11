@@ -35,74 +35,74 @@ import java.io.*;
 class IntegerConstant extends ConstantPoolEntry
 {
 
-	private int integer;
+    private int integer;
 
-	/**
-	 * <p>
-	 * construct a CONSTANT_INTEGER CPE
-	 * </p>
-	 *
-	 * @param i  the integer constant
-	 * @param cf the class file
-	 */
+    /**
+     * <p>
+     * construct a CONSTANT_INTEGER CPE
+     * </p>
+     *
+     * @param i  the integer constant
+     * @param cf the class file
+     */
 
-	IntegerConstant(int i, ClassFile cf)
-	{
-		super(CONSTANT_INTEGER, cf);
+    IntegerConstant(int i, ClassFile cf)
+    {
+        super(CONSTANT_INTEGER, cf);
 
-		integer = i;
+        integer = i;
 
-		addToConstantPool();
-	}
+        addToConstantPool();
+    }
 
-	/**
-	 * <p>
-	 * write the CONSTANT_INTEGER to the stream
-	 * </p>
-	 *
-	 * @param dos the output stream
-	 *
-	 * @throws IOException
-	 */
+    /**
+     * <p>
+     * write the CONSTANT_INTEGER to the stream
+     * </p>
+     *
+     * @param dos the output stream
+     *
+     * @throws IOException
+     */
 
-	@Override
-	void write(DataOutputStream dos) throws IOException {
-		dos.writeByte(getTag());
-		dos.writeInt(integer);
-	}
+    @Override
+    void write(DataOutputStream dos) throws IOException {
+        dos.writeByte(getTag());
+        dos.writeInt(integer);
+    }
 
-	/**
-	 * @return the value of the CONSTANT_INTEGER
-	 */
+    /**
+     * @return the value of the CONSTANT_INTEGER
+     */
 
-	int getValue() {
-		return integer;
-	}
+    int getValue() {
+        return integer;
+    }
 
-	/**
-	 * @return object equality
-	 */
+    /**
+     * @return object equality
+     */
 
-	@Override
-	public boolean equals(Object o) {
-		if (o instanceof Integer)
-		{
-			return integer == ((Integer) o).intValue();
-		} else if (o instanceof IntegerConstant)
-		{
-			IntegerConstant ic = (IntegerConstant) o;
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Integer)
+        {
+            return integer == ((Integer) o).intValue();
+        } else if (o instanceof IntegerConstant)
+        {
+            IntegerConstant ic = (IntegerConstant) o;
 
-			return integer == ic.getValue();
-		}
+            return integer == ic.getValue();
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	/**
-	 * @return a hashcode for the object.
-	 */
-	@Override
-	public int hashCode() {
-		return integer;
-	}
+    /**
+     * @return a hashcode for the object.
+     */
+    @Override
+    public int hashCode() {
+        return integer;
+    }
 }

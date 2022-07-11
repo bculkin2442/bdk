@@ -39,101 +39,101 @@ import java.io.*;
  */
 
 public final class MethodTracer extends Frame
-		implements PropertyChangeListener, DesignMode
+implements PropertyChangeListener, DesignMode
 {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = -329120621036234423L;
-	private TextArea ta;
-	protected boolean useGui;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -329120621036234423L;
+    private TextArea ta;
+    protected boolean useGui;
 
-	/**
-	 * MethodTracer constructor
-	 */
+    /**
+     * MethodTracer constructor
+     */
 
-	public MethodTracer()
-	{
-		super("Method Tracer");
-		setBackground(Color.lightGray);
-		ta = new TextArea("Method tracing service started.\n", 7, 50,
-				TextArea.SCROLLBARS_BOTH);
-		add(ta);
-		ta.setBackground(Color.lightGray);
-		ta.setEditable(false);
-		pack();
-	}
+    public MethodTracer()
+    {
+        super("Method Tracer");
+        setBackground(Color.lightGray);
+        ta = new TextArea("Method tracing service started.\n", 7, 50,
+                TextArea.SCROLLBARS_BOTH);
+        add(ta);
+        ta.setBackground(Color.lightGray);
+        ta.setEditable(false);
+        pack();
+    }
 
-	/**
-	 * Output a string indicating what method of what class this was
-	 * invoked from.
-	 */
+    /**
+     * Output a string indicating what method of what class this was
+     * invoked from.
+     */
 
-	synchronized public void traceMethod() {
-		try
-		{
-			StringWriter sw = new StringWriter();
-			(new Exception()).printStackTrace(new PrintWriter(sw));
-			StringReader sr = new StringReader(sw.getBuffer().toString());
-			BufferedReader br = new BufferedReader(sr);
+    synchronized public void traceMethod() {
+        try
+        {
+            StringWriter sw = new StringWriter();
+            (new Exception()).printStackTrace(new PrintWriter(sw));
+            StringReader sr = new StringReader(sw.getBuffer().toString());
+            BufferedReader br = new BufferedReader(sr);
 
-			br.readLine();
-			br.readLine(); // discard first two lines
-			String line = br.readLine();
-			line = line.substring("  at".length());
-			line = line.substring(0, line.indexOf('('));
-			ta.append(line);
-			ta.append("\n");
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
+            br.readLine();
+            br.readLine(); // discard first two lines
+            String line = br.readLine();
+            line = line.substring("  at".length());
+            line = line.substring(0, line.indexOf('('));
+            ta.append(line);
+            ta.append("\n");
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 
-	/**
-	 * Output the specified string to the MethodTracer window.
-	 */
+    /**
+     * Output the specified string to the MethodTracer window.
+     */
 
-	synchronized public void logText(String line) {
-		ta.append(line);
-		ta.append("\n");
-	}
+    synchronized public void logText(String line) {
+        ta.append(line);
+        ta.append("\n");
+    }
 
-	/**
-	 * Turn off visibility of MethodTracer window if execution
-	 * environment is switched to runtime and turn on visibility
-	 * if switched to design mode.
-	 */
+    /**
+     * Turn off visibility of MethodTracer window if execution
+     * environment is switched to runtime and turn on visibility
+     * if switched to design mode.
+     */
 
-	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
-		if (evt.getPropertyName().equals("designMode"))
-		{
-			boolean dmode = ((Boolean) evt.getNewValue());
-			setDesignTime(dmode);
-		}
-	}
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if (evt.getPropertyName().equals("designMode"))
+        {
+            boolean dmode = ((Boolean) evt.getNewValue());
+            setDesignTime(dmode);
+        }
+    }
 
-	/**
-	 * Turn off visibility of MethodTracer window if false and turn on
-	 * visibility if true.
-	 */
+    /**
+     * Turn off visibility of MethodTracer window if false and turn on
+     * visibility if true.
+     */
 
-	@Override
-	public void setDesignTime(boolean dmode) {
-		if (isVisible() != dmode)
-			setVisible(dmode);
-	}
+    @Override
+    public void setDesignTime(boolean dmode) {
+        if (isVisible() != dmode)
+            setVisible(dmode);
+    }
 
-	/**
-	 * Return true if MethodTracer window is visible and false if it
-	 * is not visible.
-	 */
+    /**
+     * Return true if MethodTracer window is visible and false if it
+     * is not visible.
+     */
 
-	@Override
-	public boolean isDesignTime() {
-		return isVisible();
-	}
+    @Override
+    public boolean isDesignTime() {
+        return isVisible();
+    }
 
 }

@@ -41,130 +41,130 @@ import java.io.*;
 abstract class ConstantPoolEntry
 {
 
-	/*
-	 * subtype tag values.
-	 */
+    /*
+     * subtype tag values.
+     */
 
-	final static byte CONSTANT_UTF8 = 1;
-	final static byte CONSTANT_UNICODE = 2;
-	final static byte CONSTANT_INTEGER = 3;
-	final static byte CONSTANT_FLOAT = 4;
-	final static byte CONSTANT_LONG = 5;
-	final static byte CONSTANT_DOUBLE = 6;
-	final static byte CONSTANT_CLASS = 7;
-	final static byte CONSTANT_STRING = 8;
-	final static byte CONSTANT_FIELDREF = 9;
-	final static byte CONSTANT_METHODREF = 10;
-	final static byte CONSTANT_INTERFACEMETHODREF = 11;
-	final static byte CONSTANT_NAMEANDTYPE = 12;
+    final static byte CONSTANT_UTF8 = 1;
+    final static byte CONSTANT_UNICODE = 2;
+    final static byte CONSTANT_INTEGER = 3;
+    final static byte CONSTANT_FLOAT = 4;
+    final static byte CONSTANT_LONG = 5;
+    final static byte CONSTANT_DOUBLE = 6;
+    final static byte CONSTANT_CLASS = 7;
+    final static byte CONSTANT_STRING = 8;
+    final static byte CONSTANT_FIELDREF = 9;
+    final static byte CONSTANT_METHODREF = 10;
+    final static byte CONSTANT_INTERFACEMETHODREF = 11;
+    final static byte CONSTANT_NAMEANDTYPE = 12;
 
-	/*
-	 * 
-	 */
+    /*
+     *
+     */
 
-	private byte tag;
+    private byte tag;
 
-	private ClassFile classFile;
+    private ClassFile classFile;
 
-	private short index = -1;
+    private short index = -1;
 
-	/**
-	 * <p>
-	 * construct the CPE, set the type tag and class file
-	 * </p>
-	 */
+    /**
+     * <p>
+     * construct the CPE, set the type tag and class file
+     * </p>
+     */
 
-	ConstantPoolEntry(byte t, ClassFile cf)
-	{
-		tag = t;
-		classFile = cf;
-	}
+    ConstantPoolEntry(byte t, ClassFile cf)
+    {
+        tag = t;
+        classFile = cf;
+    }
 
-	/*
-	 * <p> construct the CPE, set the type tag and class file </p>
-	 * This variant is used when the ClassFile is doing the "new"
-	 * and already knows the intended index.
-	 * @param s the string
-	 * @param cf the class file
-	 * @param index the constant pool index.
-	 */
-	ConstantPoolEntry(byte t, ClassFile cf, short index)
-	{
-		tag = t;
-		classFile = cf;
-		this.index = index;
-	}
+    /*
+     * <p> construct the CPE, set the type tag and class file </p>
+     * This variant is used when the ClassFile is doing the "new"
+     * and already knows the intended index.
+     * @param s the string
+     * @param cf the class file
+     * @param index the constant pool index.
+     */
+    ConstantPoolEntry(byte t, ClassFile cf, short index)
+    {
+        tag = t;
+        classFile = cf;
+        this.index = index;
+    }
 
-	/**
-	 *
-	 */
+    /**
+     *
+     */
 
-	byte getTag() {
-		return tag;
-	}
+    byte getTag() {
+        return tag;
+    }
 
-	/**
-	 * @return the CPE's constant pool index.
-	 */
+    /**
+     * @return the CPE's constant pool index.
+     */
 
-	short getConstantPoolIndex() {
-		if (index == -1)
-			index = classFile.addConstantPoolEntry(this);
+    short getConstantPoolIndex() {
+        if (index == -1)
+            index = classFile.addConstantPoolEntry(this);
 
-		return index;
-	}
+        return index;
+    }
 
-	/**
-	 * @return the Class File this CPE is contained within.
-	 */
+    /**
+     * @return the Class File this CPE is contained within.
+     */
 
-	ClassFile getClassFile() {
-		return classFile;
-	}
+    ClassFile getClassFile() {
+        return classFile;
+    }
 
-	/**
-	 * <p>
-	 * * write the CPE to the stream
-	 * </p>
-	 *
-	 * @throws IOException
-	 */
+    /**
+     * <p>
+     * * write the CPE to the stream
+     * </p>
+     *
+     * @throws IOException
+     */
 
-	abstract void write(DataOutputStream dos) throws IOException;
+    abstract void write(DataOutputStream dos) throws IOException;
 
-	/**
-	 * <p>
-	 * test the CPE for equality
-	 * </p>
-	 *
-	 * @return object's equality.
-	 */
+    /**
+     * <p>
+     * test the CPE for equality
+     * </p>
+     *
+     * @return object's equality.
+     */
 
-	@Override
-	public abstract boolean equals(Object o);
+    @Override
+    public abstract boolean equals(Object o);
 
-	/**
-	 * @return a hashcode for the object.
-	 */
-	@Override
-	abstract public int hashCode();
+    /**
+     * @return a hashcode for the object.
+     */
+    @Override
+    abstract public int hashCode();
 
-	/**
-	 * <p>
-	 * add the CPE into the Class File's constant pool
-	 * </p>
-	 */
+    /**
+     * <p>
+     * add the CPE into the Class File's constant pool
+     * </p>
+     */
 
-	protected void addToConstantPool() {
-		if (index == -1)
-			index = classFile.addConstantPoolEntry(this);
-	}
+    protected void addToConstantPool() {
+        if (index == -1)
+            index = classFile.addConstantPoolEntry(this);
+    }
 
-	/**
-	 * @return are we in debug mode?
-	 */
+    /**
+     * @return are we in debug mode?
+     */
 
-	protected static boolean debug() {
-		return ClassFile.debug();
-	}
+    protected static boolean debug() {
+        return ClassFile.debug();
+    }
 }

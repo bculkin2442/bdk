@@ -38,84 +38,84 @@ import java.io.*;
 abstract class Attribute
 {
 
-	final static String SOURCEFILE = "SourceFile";
-	final static String CONSTANTVALUE = "ConstantValue";
-	final static String LOCALVARIABLETABLE = "LocalVariableTable";
-	final static String EXCEPTIONS = "Exceptions";
-	final static String LINENUMBERTABLE = "LineNumberTable";
-	final static String CODE = "Code";
+    final static String SOURCEFILE = "SourceFile";
+    final static String CONSTANTVALUE = "ConstantValue";
+    final static String LOCALVARIABLETABLE = "LocalVariableTable";
+    final static String EXCEPTIONS = "Exceptions";
+    final static String LINENUMBERTABLE = "LineNumberTable";
+    final static String CODE = "Code";
 
-	private UTF8Constant name;
-	private ClassFile classFile;
+    private UTF8Constant name;
+    private ClassFile classFile;
 
-	/**
-	 * <p>
-	 * Construct an Attribute, enter it into the ConstantPool.
-	 * </p>
-	 */
+    /**
+     * <p>
+     * Construct an Attribute, enter it into the ConstantPool.
+     * </p>
+     */
 
-	protected Attribute(String n, ClassFile cf)
-	{
-		UTF8Constant utf8 = new UTF8Constant(n, cf);
+    protected Attribute(String n, ClassFile cf)
+    {
+        UTF8Constant utf8 = new UTF8Constant(n, cf);
 
-		name = utf8;
-		classFile = cf;
-	}
+        name = utf8;
+        classFile = cf;
+    }
 
-	/**
-	 * @return the ClassFile this Attribute is contained within
-	 */
+    /**
+     * @return the ClassFile this Attribute is contained within
+     */
 
-	ClassFile getClassFile() {
-		return classFile;
-	}
+    ClassFile getClassFile() {
+        return classFile;
+    }
 
-	/**
-	 * @return the "name" of the Attribute.
-	 */
+    /**
+     * @return the "name" of the Attribute.
+     */
 
-	String getName() {
-		return name.getString();
-	}
+    String getName() {
+        return name.getString();
+    }
 
-	/**
-	 * @return get the index of this Attribute in the ConstantPool
-	 */
+    /**
+     * @return get the index of this Attribute in the ConstantPool
+     */
 
-	short getNameConstantPoolIndex() {
-		return name.getConstantPoolIndex();
-	}
+    short getNameConstantPoolIndex() {
+        return name.getConstantPoolIndex();
+    }
 
-	/**
-	 * @return the length of the attribute as defined by the concrete subclass.
-	 */
+    /**
+     * @return the length of the attribute as defined by the concrete subclass.
+     */
 
-	abstract int getLength();
+    abstract int getLength();
 
-	/**
-	 * <p>
-	 * write the concrete Attribute subclass to the stream
-	 * <p>
-	 *
-	 * @throws IOException
-	 */
+    /**
+     * <p>
+     * write the concrete Attribute subclass to the stream
+     * <p>
+     *
+     * @throws IOException
+     */
 
-	abstract void write(DataOutputStream dos) throws IOException;
+    abstract void write(DataOutputStream dos) throws IOException;
 
-	/**
-	 * <p>
-	 * Compare this Attribute with the object and return equality.
-	 * </p>
-	 *
-	 * @return is it equal
-	 */
+    /**
+     * <p>
+     * Compare this Attribute with the object and return equality.
+     * </p>
+     *
+     * @return is it equal
+     */
 
-	@Override
-	abstract public boolean equals(Object o);
+    @Override
+    abstract public boolean equals(Object o);
 
-	/**
-	 * @return a hashcode for the object.
-	 */
-	@Override
-	abstract public int hashCode();
+    /**
+     * @return a hashcode for the object.
+     */
+    @Override
+    abstract public int hashCode();
 }

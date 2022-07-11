@@ -14,21 +14,21 @@ import java.rmi.*;
 
 public interface QuoteListener extends Remote
 {
-	/**
-	 * Called by the QuoteServer each time a new QuoteEvent is availble
-	 * for the stock symbol returned by getStockSymbol.
-	 * 
-	 * @param x timestamped quote data for one stock
-	 * 
-	 * @see #getStockSymbol()
-	 */
-	void quoteChanged(QuoteEvent x) throws RemoteException;
+    /**
+     * Called by the QuoteServer each time a new QuoteEvent is availble
+     * for the stock symbol returned by getStockSymbol.
+     *
+     * @param x timestamped quote data for one stock
+     *
+     * @see #getStockSymbol()
+     */
+    void quoteChanged(QuoteEvent x) throws RemoteException;
 
-	/**
-	 * Called by the QuoteServer before polling the quote source
-	 * to discover what stock we're monitoring.
-	 * 
-	 * @return the symbol for the stock we're interested in
-	 */
-	String getStockSymbol() throws RemoteException;
+    /**
+     * Called by the QuoteServer before polling the quote source
+     * to discover what stock we're monitoring.
+     *
+     * @return the symbol for the stock we're interested in
+     */
+    String getStockSymbol() throws RemoteException;
 }

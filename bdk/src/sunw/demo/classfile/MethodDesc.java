@@ -35,102 +35,102 @@ import java.io.*;
 final class MethodDesc
 {
 
-	final static short ACC_PUBLIC = 0x0001;
-	final static short ACC_PRIVATE = 0x0002;
-	final static short ACC_PROTECTED = 0x0004;
-	final static short ACC_STATIC = 0x0008;
-	final static short ACC_FINAL = 0x0010;
-	final static short ACC_SYNCHRONIZED = 0x0020;
-	final static short ACC_NATIVE = 0x0100;
-	final static short ACC_ABSTRACT = 0x0400;
+    final static short ACC_PUBLIC = 0x0001;
+    final static short ACC_PRIVATE = 0x0002;
+    final static short ACC_PROTECTED = 0x0004;
+    final static short ACC_STATIC = 0x0008;
+    final static short ACC_FINAL = 0x0010;
+    final static short ACC_SYNCHRONIZED = 0x0020;
+    final static short ACC_NATIVE = 0x0100;
+    final static short ACC_ABSTRACT = 0x0400;
 
-	private UTF8Constant name;
-	private UTF8Constant descriptor;
+    private UTF8Constant name;
+    private UTF8Constant descriptor;
 
-	private short accessFlags;
+    private short accessFlags;
 
-	private ClassFile classFile;
+    private ClassFile classFile;
 
-	private Attribute[] attributes;
+    private Attribute[] attributes;
 
-	/**
-	 * <p>
-	 * construct a descriptor for a method
-	 * </p>
-	 *
-	 * @param method the name of the method
-	 * @param desc   a type descriptor for its signature
-	 * @param flags  access flags
-	 * @param cf     the class file
-	 * @param attrs  arbitrary attributes
-	 *
-	 */
+    /**
+     * <p>
+     * construct a descriptor for a method
+     * </p>
+     *
+     * @param method the name of the method
+     * @param desc   a type descriptor for its signature
+     * @param flags  access flags
+     * @param cf     the class file
+     * @param attrs  arbitrary attributes
+     *
+     */
 
-	MethodDesc(String method, String desc, short flags, ClassFile cf, Attribute[] attrs)
-	{
-		super();
+    MethodDesc(String method, String desc, short flags, ClassFile cf, Attribute[] attrs)
+    {
+        super();
 
-		// we would validate here ...
+        // we would validate here ...
 
-		name = new UTF8Constant(method, cf);
-		descriptor = new UTF8Constant(desc, cf);
-		accessFlags = flags;
-		classFile = cf;
-		attributes = attrs;
-	}
+        name = new UTF8Constant(method, cf);
+        descriptor = new UTF8Constant(desc, cf);
+        accessFlags = flags;
+        classFile = cf;
+        attributes = attrs;
+    }
 
-	/**
-	 * <p>
-	 * construct a descriptor for a method
-	 * </p>
-	 *
-	 * @param method the name of the method
-	 * @param desc   a type descriptor for its signature
-	 * @param flags  access flags
-	 * @param cf     the class file
-	 * @param code   the code
-	 *
-	 */
+    /**
+     * <p>
+     * construct a descriptor for a method
+     * </p>
+     *
+     * @param method the name of the method
+     * @param desc   a type descriptor for its signature
+     * @param flags  access flags
+     * @param cf     the class file
+     * @param code   the code
+     *
+     */
 
-	MethodDesc(String method, String desc, short flags, ClassFile cf, Code code)
-	{
-		super();
-		// we would validate here ...
-		name = new UTF8Constant(method, cf);
-		descriptor = new UTF8Constant(desc, cf);
-		accessFlags = flags;
-		classFile = cf;
-		Attribute ats[] =
-		{
-				code
-		};
-		attributes = ats;
-	}
+    MethodDesc(String method, String desc, short flags, ClassFile cf, Code code)
+    {
+        super();
+        // we would validate here ...
+        name = new UTF8Constant(method, cf);
+        descriptor = new UTF8Constant(desc, cf);
+        accessFlags = flags;
+        classFile = cf;
+        Attribute ats[] =
+            {
+                    code
+            };
+        attributes = ats;
+    }
 
-	/**
-	 * <p>
-	 * write the method to the stream
-	 * </p>
-	 *
-	 * @param dos the output stream
-	 *
-	 * @throws IOException
-	 */
+    /**
+     * <p>
+     * write the method to the stream
+     * </p>
+     *
+     * @param dos the output stream
+     *
+     * @throws IOException
+     */
 
-	void write(DataOutputStream dos) throws IOException {
-		dos.writeShort(accessFlags);
-		dos.writeShort(name.getConstantPoolIndex());
-		dos.writeShort(descriptor.getConstantPoolIndex());
+    void write(DataOutputStream dos) throws IOException {
+        dos.writeShort(accessFlags);
+        dos.writeShort(name.getConstantPoolIndex());
+        dos.writeShort(descriptor.getConstantPoolIndex());
 
-		if (attributes != null && attributes.length > 0)
-		{
-			dos.writeShort(attributes.length);
+        if (attributes != null && attributes.length > 0)
+        {
+            dos.writeShort(attributes.length);
 
-			for (Attribute attribute : attributes)
-			{
-				attribute.write(dos);
-			}
-		} else
-			dos.writeShort(0);
-	}
+            for (Attribute attribute : attributes)
+            {
+                attribute.write(dos);
+            }
+        } else
+            dos.writeShort(0);
+    }
 }

@@ -9,22 +9,22 @@ import java.awt.*;
 
 public class StartFrame extends Frame
 {
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 2465443185660423925L;
-	private static int width = 250;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 2465443185660423925L;
+    private static int width = 250;
 
-	public StartFrame()
-	{
-		super("BeanBox");
-		setBackground(Color.lightGray);
+    public StartFrame()
+    {
+        super("BeanBox");
+        setBackground(Color.lightGray);
 
-		Label l = new Label("Loading and analyzing jars...", Label.CENTER);
-		add(l);
-		l.setBounds(0, 35, width, 20);
+        Label l = new Label("Loading and analyzing jars...", Label.CENTER);
+        add(l);
+        l.setBounds(0, 35, width, 20);
 
-		setBounds(200, 200, width, 70);
-		show();
-	}
+        setBounds(200, 200, width, 70);
+        show();
+    }
 }

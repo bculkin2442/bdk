@@ -10,13 +10,13 @@ import java.util.*;
 
 public class ButtonPushEvent extends EventObject
 {
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 5072240537381989081L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5072240537381989081L;
 
-	public ButtonPushEvent(java.awt.Component source)
-	{
-		super(source);
-	}
+    public ButtonPushEvent(java.awt.Component source)
+    {
+        super(source);
+    }
 }

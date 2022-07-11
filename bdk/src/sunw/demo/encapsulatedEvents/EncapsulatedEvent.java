@@ -36,7 +36,7 @@ import java.util.*;
  * technique for creating a polymorphic event processing model as an extension
  * of the existing JavaBeans Event Model.
  * </p>
- * 
+ *
  * @see sunw.demo.encapsulatedEvents.EncapsulatedEventAdaptor
  * @see sunw.demo.encapsulatedEvents.EncapsulatedEventListener
  * @see sunw.demo.encapsulatedEvents.EncapsulatedEventAdaptorGenerator
@@ -46,234 +46,234 @@ import java.util.*;
 public class EncapsulatedEvent extends EventObject
 {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 9034133522043013259L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 9034133522043013259L;
 
-	protected EventObject event;
+    protected EventObject event;
 
-	protected Method listenerMethod;
+    protected Method listenerMethod;
 
-	protected Class listenerInterface;
+    protected Class<?> listenerInterface;
 
-	protected Object[] eventArgs;
+    protected Object[] eventArgs;
 
-	/**
-	 * <p>
-	 * Construct an EncapsulatedEvent object. An EncapsulatedEvent contains
-	 * a reference to the "actual" event occurring, and the Method/Class
-	 * from which this "actual" event was fired.
-	 * </p>
-	 * 
-	 * @param s The "source" of the "actual" event (may not be null).
-	 * @param e The "actual" event itself (or null if this is a "cracked" event.
-	 * @param m The java.lang.reflect.Method describing the Listener method that
-	 *          this event was emitted from.
-	 *
-	 * @throw NullPointerException
-	 */
+    /**
+     * <p>
+     * Construct an EncapsulatedEvent object. An EncapsulatedEvent contains
+     * a reference to the "actual" event occurring, and the Method/Class
+     * from which this "actual" event was fired.
+     * </p>
+     *
+     * @param s The "source" of the "actual" event (may not be null).
+     * @param e The "actual" event itself (or null if this is a "cracked" event.
+     * @param m The java.lang.reflect.Method describing the Listener method that
+     *          this event was emitted from.
+     *
+     * @throw NullPointerException
+     */
 
-	protected EncapsulatedEvent(Object s, EventObject e, Method m, Object[] a)
-	{
-		super(s);
+    protected EncapsulatedEvent(Object s, EventObject e, Method m, Object[] a)
+    {
+        super(s);
 
-		if (m == null || (e == null && a == null))
-			throw new NullPointerException("Encapsulated Event constructor args");
+        if (m == null || (e == null && a == null))
+            throw new NullPointerException("Encapsulated Event constructor args");
 
-		if (e == null && a != null)
-		{
-			for (Object element : a)
-			{
-				if (element instanceof EventObject)
-				{
-					e = (EventObject) element;
-					break;
-				}
-			}
-		}
+        if (e == null && a != null)
+        {
+            for (Object element : a)
+            {
+                if (element instanceof EventObject)
+                {
+                    e = (EventObject) element;
+                    break;
+                }
+            }
+        }
 
-		/*
-		 * if we are forwarding an EncapsulatedEvent then unwrap it!
-		 */
+        /*
+         * if we are forwarding an EncapsulatedEvent then unwrap it!
+         */
 
-		if (e != null && e instanceof EncapsulatedEvent)
-		{
-			EncapsulatedEvent ee = (EncapsulatedEvent) e;
+        if (e != null && e instanceof EncapsulatedEvent)
+        {
+            EncapsulatedEvent ee = (EncapsulatedEvent) e;
 
-			event = ee.getEvent();
-			m = ee.getListenerMethod();
-		} else
-			event = e;
+            event = ee.getEvent();
+            m = ee.getListenerMethod();
+        } else
+            event = e;
 
-		listenerMethod = m;
-		listenerInterface = m.getDeclaringClass();
+        listenerMethod = m;
+        listenerInterface = m.getDeclaringClass();
 
-		// if the event object is not included in the event args then insert
-		// it at index 0.
+        // if the event object is not included in the event args then insert
+        // it at index 0.
 
-		if (e != null)
-		{
-			if (a == null)
-			{
-				a = new Object[1];
-				a[0] = event;
-			} else
-			{
-				int i;
+        if (e != null)
+        {
+            if (a == null)
+            {
+                a = new Object[1];
+                a[0] = event;
+            } else
+            {
+                int i;
 
-				for (i = 0; i < a.length && !e.equals(a[i]); i++)
-					;
+                for (i = 0; i < a.length && !e.equals(a[i]); i++)
+                    ;
 
-				if (i == a.length)
-				{ // not found
-					Object[] tmp = new Object[a.length + 1];
+                if (i == a.length)
+                { // not found
+                    Object[] tmp = new Object[a.length + 1];
 
-					tmp[0] = event; // put it at the start
+                    tmp[0] = event; // put it at the start
 
-					for (i = 0; i < a.length; i++)
-						tmp[i + 1] = a[i];
-				}
-			}
-		}
+                    for (i = 0; i < a.length; i++)
+                        tmp[i + 1] = a[i];
+                }
+            }
+        }
 
-		eventArgs = a;
-	}
+        eventArgs = a;
+    }
 
-	/**
-	 * <p>
-	 * Construct an Event Object from an intermediate.
-	 * </p>
-	 */
+    /**
+     * <p>
+     * Construct an Event Object from an intermediate.
+     * </p>
+     */
 
-	public EncapsulatedEvent(Object s, EventObject e, Method m)
-	{
-		this(s, e, m, null);
-	}
+    public EncapsulatedEvent(Object s, EventObject e, Method m)
+    {
+        this(s, e, m, null);
+    }
 
-	/**
-	 * <p>
-	 * Construct an Event Object from a simple event listener method.
-	 * </p>
-	 */
+    /**
+     * <p>
+     * Construct an Event Object from a simple event listener method.
+     * </p>
+     */
 
-	public EncapsulatedEvent(EventObject e, Method m)
-	{
-		this(e.getSource(), e, m);
-	}
+    public EncapsulatedEvent(EventObject e, Method m)
+    {
+        this(e.getSource(), e, m);
+    }
 
-	/**
-	 * <p>
-	 * Construct an Event Object from a cracked event listener method.
-	 * </p>
-	 */
+    /**
+     * <p>
+     * Construct an Event Object from a cracked event listener method.
+     * </p>
+     */
 
-	public EncapsulatedEvent(Object s, Method m, Object[] a)
-	{
-		this(s, null, m, a);
-	}
+    public EncapsulatedEvent(Object s, Method m, Object[] a)
+    {
+        this(s, null, m, a);
+    }
 
-	/**
-	 * @return The EventObject instance encapsulated or null if from a cracked
-	 *         event.
-	 */
+    /**
+     * @return The EventObject instance encapsulated or null if from a cracked
+     *         event.
+     */
 
-	public EventObject getEvent() {
-		return event;
-	}
+    public EventObject getEvent() {
+        return event;
+    }
 
-	/**
-	 * @return The java.lang.Class of the EventObject instance encapsulated or null
-	 *         if from a cracked event.
-	 */
+    /**
+     * @return The java.lang.Class of the EventObject instance encapsulated or null
+     *         if from a cracked event.
+     */
 
-	public Class getEventClass() {
-		return (event != null ? event.getClass() : null);
-	}
+    public Class<?> getEventClass() {
+        return (event != null ? event.getClass() : null);
+    }
 
-	/**
-	 * @return The String name of the class of the EventObject instance encapsulated
-	 *         or null if from a cracked event.
-	 */
+    /**
+     * @return The String name of the class of the EventObject instance encapsulated
+     *         or null if from a cracked event.
+     */
 
-	public String getEventClassName() {
-		return (event != null ? event.getClass().getName() : null);
-	}
+    public String getEventClassName() {
+        return (event != null ? event.getClass().getName() : null);
+    }
 
-	/**
-	 * @return The source object of the encapsulated EventObject instance.
-	 */
+    /**
+     * @return The source object of the encapsulated EventObject instance.
+     */
 
-	public Object getEventSource() {
-		return (event != null ? event.getSource() : getSource());
-	}
+    public Object getEventSource() {
+        return (event != null ? event.getSource() : getSource());
+    }
 
-	/**
-	 * @return the java.lang.reflect.Method of the EventListener Method.
-	 */
+    /**
+     * @return the java.lang.reflect.Method of the EventListener Method.
+     */
 
-	public Method getListenerMethod() {
-		return listenerMethod;
-	}
+    public Method getListenerMethod() {
+        return listenerMethod;
+    }
 
-	/**
-	 * @return the name of the java.lang.reflect.Method of the EventListener Method.
-	 */
+    /**
+     * @return the name of the java.lang.reflect.Method of the EventListener Method.
+     */
 
-	public String getListenerMethodName() {
-		return listenerMethod.getName();
-	}
+    public String getListenerMethodName() {
+        return listenerMethod.getName();
+    }
 
-	/**
-	 * @return the Class for the orginating EventListener subinterface
-	 */
+    /**
+     * @return the Class for the orginating EventListener subinterface
+     */
 
-	public Class getListenerInterface() {
-		return listenerInterface;
-	}
+    public Class<?> getListenerInterface() {
+        return listenerInterface;
+    }
 
-	/**
-	 * @return the name of the Class for the orginating EventListener subinterface
-	 */
+    /**
+     * @return the name of the Class for the orginating EventListener subinterface
+     */
 
-	public String getListenerInterfaceName() {
-		return listenerInterface.getName();
-	}
+    public String getListenerInterfaceName() {
+        return listenerInterface.getName();
+    }
 
-	/**
-	 * @return an Object[] of the encapsulated event, if the EventObject is not
-	 *         already in the args, it is inserted by this class at index 0.
-	 */
+    /**
+     * @return an Object[] of the encapsulated event, if the EventObject is not
+     *         already in the args, it is inserted by this class at index 0.
+     */
 
-	public Object[] getEventArguments() {
-		return eventArgs;
-	}
+    public Object[] getEventArguments() {
+        return eventArgs;
+    }
 
-	/**
-	 * <p>
-	 * This method can be used to deliver the encapsulated event to an object
-	 * that conforms to the EventListener sub-interface that the event originated
-	 * from.
-	 * </p>
-	 *
-	 * @param el The EventListener object to deliver the unencapsulated event to.
-	 *
-	 * @throws InvocationTargetException
-	 * @throws IllegalAccessException
-	 */
+    /**
+     * <p>
+     * This method can be used to deliver the encapsulated event to an object
+     * that conforms to the EventListener sub-interface that the event originated
+     * from.
+     * </p>
+     *
+     * @param el The EventListener object to deliver the unencapsulated event to.
+     *
+     * @throws InvocationTargetException
+     * @throws IllegalAccessException
+     */
 
-	public void deliverEvent(EventListener el)
-			throws InvocationTargetException, IllegalAccessException {
+    public void deliverEvent(EventListener el)
+            throws InvocationTargetException, IllegalAccessException {
 
-		/*
-		 * a likely error here is the caller passes an EventListener
-		 * reference that does not match the EventListener instance
-		 * this particular EncapsulatedEvent encapsulates, fortunately
-		 * the JVM RT checks will catch this and throw an exception.
-		 * In any case the caller of this method should get the
-		 * exception (if any) so we should not catch it here.
-		 */
+        /*
+         * a likely error here is the caller passes an EventListener
+         * reference that does not match the EventListener instance
+         * this particular EncapsulatedEvent encapsulates, fortunately
+         * the JVM RT checks will catch this and throw an exception.
+         * In any case the caller of this method should get the
+         * exception (if any) so we should not catch it here.
+         */
 
-		listenerMethod.invoke((Object) el, eventArgs);
-	}
+        listenerMethod.invoke((Object) el, eventArgs);
+    }
 }

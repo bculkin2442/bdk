@@ -10,78 +10,78 @@ import java.util.*;
 public class TickTock implements Runnable, java.io.Serializable
 {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 1181144272664592123L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1181144272664592123L;
 
-	public TickTock()
-	{
-		reset();
-	}
+    public TickTock()
+    {
+        reset();
+    }
 
-	private void reset() {
-		runner = new Thread(this);
-		runner.start();
-	}
+    private void reset() {
+        runner = new Thread(this);
+        runner.start();
+    }
 
-	public int getSeconds() {
-		return (int) ((new Date()).getTime() / 1000);
-	}
+    public int getSeconds() {
+        return (int) ((new Date()).getTime() / 1000);
+    }
 
-	public int getInterval() {
-		return interval;
-	}
+    public int getInterval() {
+        return interval;
+    }
 
-	public void setInterval(int seconds) {
-		interval = seconds;
-		if (runner != null)
-		{
-			runner.interrupt();
-		}
-	}
+    public void setInterval(int seconds) {
+        interval = seconds;
+        if (runner != null)
+        {
+            runner.interrupt();
+        }
+    }
 
-	@Override
-	public void run() {
-		int oldSeconds = getSeconds();
-		for (;;)
-		{
-			try
-			{
-				Thread.sleep(interval * 1000);
-			} catch (InterruptedException ex)
-			{
-				// Just drop through.
-			}
-			int newSeconds = getSeconds();
-			changes.firePropertyChange("seconds", new Integer(oldSeconds),
-					new Integer(newSeconds));
-			oldSeconds = newSeconds;
-		}
-	}
+    @Override
+    public void run() {
+        int oldSeconds = getSeconds();
+        for (;;)
+        {
+            try
+            {
+                Thread.sleep(interval * 1000);
+            } catch (InterruptedException ex)
+            {
+                // Just drop through.
+            }
+            int newSeconds = getSeconds();
+            changes.firePropertyChange("seconds", new Integer(oldSeconds),
+                    new Integer(newSeconds));
+            oldSeconds = newSeconds;
+        }
+    }
 
-	// ----------------------------------------------------------------------
-	// Methods for registering listeners:
+    // ----------------------------------------------------------------------
+    // Methods for registering listeners:
 
-	public void addPropertyChangeListener(PropertyChangeListener l) {
-		changes.addPropertyChangeListener(l);
-	}
+    public void addPropertyChangeListener(PropertyChangeListener l) {
+        changes.addPropertyChangeListener(l);
+    }
 
-	public void removePropertyChangeListener(PropertyChangeListener l) {
-		changes.removePropertyChangeListener(l);
-	}
+    public void removePropertyChangeListener(PropertyChangeListener l) {
+        changes.removePropertyChangeListener(l);
+    }
 
-	// ----------------------------------------------------------------------
-	// Support for serialization
+    // ----------------------------------------------------------------------
+    // Support for serialization
 
-	private void readObject(java.io.ObjectInputStream s)
-			throws java.lang.ClassNotFoundException, java.io.IOException {
-		s.defaultReadObject();
-		// Compensate for missing constructor.
-		reset();
-	}
+    private void readObject(java.io.ObjectInputStream s)
+            throws java.lang.ClassNotFoundException, java.io.IOException {
+        s.defaultReadObject();
+        // Compensate for missing constructor.
+        reset();
+    }
 
-	private PropertyChangeSupport changes = new PropertyChangeSupport(this);
-	private int interval = 5;
-	transient Thread runner;
+    private PropertyChangeSupport changes = new PropertyChangeSupport(this);
+    private int interval = 5;
+    transient Thread runner;
 }

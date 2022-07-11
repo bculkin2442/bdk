@@ -35,78 +35,78 @@ import java.io.*;
 class FloatConstant extends ConstantPoolEntry
 {
 
-	private float floating;
+    private float floating;
 
-	/**
-	 * <p>
-	 * construct a CONSTANT_FLOAT
-	 * </p>
-	 *
-	 * @param f  the float value
-	 * @param cf the class file
-	 */
+    /**
+     * <p>
+     * construct a CONSTANT_FLOAT
+     * </p>
+     *
+     * @param f  the float value
+     * @param cf the class file
+     */
 
-	FloatConstant(float f, ClassFile cf)
-	{
-		super(CONSTANT_FLOAT, cf);
+    FloatConstant(float f, ClassFile cf)
+    {
+        super(CONSTANT_FLOAT, cf);
 
-		floating = f;
+        floating = f;
 
-		addToConstantPool();
-	}
+        addToConstantPool();
+    }
 
-	/**
-	 * <p>
-	 * write the CONSTANT_FLOAT to the stream
-	 * </p>
-	 *
-	 * @param dos the output stream
-	 *
-	 * @throws IOException
-	 */
+    /**
+     * <p>
+     * write the CONSTANT_FLOAT to the stream
+     * </p>
+     *
+     * @param dos the output stream
+     *
+     * @throws IOException
+     */
 
-	@Override
-	void write(DataOutputStream dos) throws IOException {
-		dos.writeByte(getTag());
-		dos.writeFloat(floating);
-	}
+    @Override
+    void write(DataOutputStream dos) throws IOException {
+        dos.writeByte(getTag());
+        dos.writeFloat(floating);
+    }
 
-	/**
-	 * <p>
-	 * return the value of the constant
-	 * </p>
-	 *
-	 * @return the value of the CONSTANT_FLOAT
-	 */
+    /**
+     * <p>
+     * return the value of the constant
+     * </p>
+     *
+     * @return the value of the CONSTANT_FLOAT
+     */
 
-	float getValue() {
-		return floating;
-	}
+    float getValue() {
+        return floating;
+    }
 
-	/**
-	 * @return object equality
-	 */
+    /**
+     * @return object equality
+     */
 
-	@Override
-	public boolean equals(Object o) {
-		if (o instanceof Float)
-		{
-			return floating == ((Float) o).floatValue();
-		} else if (o instanceof FloatConstant)
-		{
-			FloatConstant fc = (FloatConstant) o;
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Float)
+        {
+            return floating == ((Float) o).floatValue();
+        } else if (o instanceof FloatConstant)
+        {
+            FloatConstant fc = (FloatConstant) o;
 
-			return floating == fc.getValue();
-		}
+            return floating == fc.getValue();
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	/**
-	 * @return a hashcode for the object.
-	 */
-	@Override
-	public int hashCode() {
-		return (int) floating;
-	}
+    /**
+     * @return a hashcode for the object.
+     */
+    @Override
+    public int hashCode() {
+        return (int) floating;
+    }
 }

@@ -13,32 +13,32 @@ import java.awt.*;
 public class OurLabel extends Component
 {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = -2782659166721783774L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -2782659166721783774L;
 
-	public OurLabel(String label)
-	{
-		this.label = label;
-		Font f = new Font("Helvetica", Font.PLAIN, 10);
-		setFont(f);
-	}
+    public OurLabel(String label)
+    {
+        this.label = label;
+        Font f = new Font("Helvetica", Font.PLAIN, 10);
+        setFont(f);
+    }
 
-	@Override
-	public Dimension getPreferredSize() {
-		FontMetrics fm = getFontMetrics(getFont());
-		baseline = fm.getMaxAscent() + 2;
-		int height = baseline + fm.getMaxDescent() + 2;
-		int width = fm.stringWidth(label) + 17;
-		return new Dimension(width, height);
-	}
+    @Override
+    public Dimension getPreferredSize() {
+        FontMetrics fm = getFontMetrics(getFont());
+        baseline = fm.getMaxAscent() + 2;
+        int height = baseline + fm.getMaxDescent() + 2;
+        int width = fm.stringWidth(label) + 17;
+        return new Dimension(width, height);
+    }
 
-	@Override
-	public void paint(Graphics g) {
-		g.drawString(label, 3, baseline);
-	}
+    @Override
+    public void paint(Graphics g) {
+        g.drawString(label, 3, baseline);
+    }
 
-	String label;
-	int baseline;
+    String label;
+    int baseline;
 }

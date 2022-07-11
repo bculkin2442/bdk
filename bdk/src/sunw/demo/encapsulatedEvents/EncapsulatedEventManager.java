@@ -36,7 +36,7 @@ package sunw.demo.encapsulatedEvents;
  * event source, should locate that event sources EncapsulatedEventManager
  * and use this interface on that instance to obtain such an event stream.
  * </p>
- * 
+ *
  * @seealso sunw.demo..encapsulatedEvents.EncapsulatedEvent
  * @seealso sunw.demo..encapsulatedEvents.EncapsulatedEventListener
  * @seealso sunw.demo..encapsulatedEvents.EncapsulatedEventAdaptor
@@ -45,93 +45,93 @@ package sunw.demo.encapsulatedEvents;
 public interface EncapsulatedEventManager
 {
 
-	/**
-	 * <p>
-	 * Called to determine the events that a particular source emits. Will throw
-	 * IllegalArgumentException if s is not managed by this
-	 * EncapsulatedEventManager.
-	 * </p>
-	 *
-	 * @param s the event source
-	 *
-	 * @return list of java.util.EventListener sub-interfaces that s sources or
-	 *         null.
-	 *
-	 * @throws IllegalArgumentException
-	 * @throws NullPointerException
-	 */
+    /**
+     * <p>
+     * Called to determine the events that a particular source emits. Will throw
+     * IllegalArgumentException if s is not managed by this
+     * EncapsulatedEventManager.
+     * </p>
+     *
+     * @param s the event source
+     *
+     * @return list of java.util.EventListener sub-interfaces that s sources or
+     *         null.
+     *
+     * @throws IllegalArgumentException
+     * @throws NullPointerException
+     */
 
-	Class[] getSourceEventListenerInterfaces(Object s);
+    Class<?>[] getSourceEventListenerInterfaces(Object s);
 
-	/**
-	 * <p>
-	 * Adds the listener eel to the source s to receive ALL events s emits
-	 * as encpasulated events. Will throw IllegalArgumentException if s is
-	 * not managed by this EncapsulatedEventManager.
-	 * </p>
-	 *
-	 * @param s   the event source
-	 * @param eel the listener
-	 *
-	 * @throws IllegalArgumentException
-	 * @throws NullPointerException
-	 */
+    /**
+     * <p>
+     * Adds the listener eel to the source s to receive ALL events s emits
+     * as encpasulated events. Will throw IllegalArgumentException if s is
+     * not managed by this EncapsulatedEventManager.
+     * </p>
+     *
+     * @param s   the event source
+     * @param eel the listener
+     *
+     * @throws IllegalArgumentException
+     * @throws NullPointerException
+     */
 
-	void addEncapsulatedEventListener(Object s, EncapsulatedEventListener eel);
+    void addEncapsulatedEventListener(Object s, EncapsulatedEventListener eel);
 
-	/**
-	 * <p>
-	 * Removes the listener eel from the source s, thus unregistering eel from
-	 * receiving encapsulated events for all the events that s emits.
-	 * Will throw IllegalArgumentException if s is not managed by this
-	 * EncapsulatedEventManager.
-	 * </p>
-	 *
-	 * @param s   the event source
-	 * @param eel the listener
-	 *
-	 * @throws IllegalArgumentException
-	 * @throws NullPointerException
-	 */
+    /**
+     * <p>
+     * Removes the listener eel from the source s, thus unregistering eel from
+     * receiving encapsulated events for all the events that s emits.
+     * Will throw IllegalArgumentException if s is not managed by this
+     * EncapsulatedEventManager.
+     * </p>
+     *
+     * @param s   the event source
+     * @param eel the listener
+     *
+     * @throws IllegalArgumentException
+     * @throws NullPointerException
+     */
 
-	void removeEncapsulatedEventListener(Object s, EncapsulatedEventListener eel);
+    void removeEncapsulatedEventListener(Object s, EncapsulatedEventListener eel);
 
-	/**
-	 * <p>
-	 * Adds the listener eel to the source s to receive the events enumerated
-	 * by lc that s emits. Will throw IllegalArgumentException if s is not
-	 * managed by this EncapsulatedEventManager or if lc contains a reference
-	 * to a Class that s does not emit events on.
-	 * </p>
-	 *
-	 * @param s   the event source
-	 * @param eel the listener
-	 * @param lc  the list of events to register the eel to receive.
-	 *
-	 * @throws IllegalArgumentException
-	 * @throws NullPointerException
-	 */
+    /**
+     * <p>
+     * Adds the listener eel to the source s to receive the events enumerated
+     * by lc that s emits. Will throw IllegalArgumentException if s is not
+     * managed by this EncapsulatedEventManager or if lc contains a reference
+     * to a Class that s does not emit events on.
+     * </p>
+     *
+     * @param s   the event source
+     * @param eel the listener
+     * @param lc  the list of events to register the eel to receive.
+     *
+     * @throws IllegalArgumentException
+     * @throws NullPointerException
+     */
 
-	void addEncapsulatedEventListener(Object s, EncapsulatedEventListener eel,
-			Class[] lc);
+    void addEncapsulatedEventListener(Object s, EncapsulatedEventListener eel,
+            Class<?>[] lc);
 
-	/**
-	 * <p>
-	 * Removes the listener eel from the source s, thus unregistering for
-	 * encapsulated events from s enumerated by lc. Will throw
-	 * IllegalArgumentException if s is not managed by this
-	 * EncapsulatedEventManager or if lc contains a reference
-	 * to a Class that s does not emit events on.
-	 * </p>
-	 *
-	 * @param s   the event source
-	 * @param eel the listener
-	 * @param lc  the list of events to unregister the eel from receiving.
-	 *
-	 * @throws IllegalArgumentException
-	 * @throws NullPointerException
-	 */
+    /**
+     * <p>
+     * Removes the listener eel from the source s, thus unregistering for
+     * encapsulated events from s enumerated by lc. Will throw
+     * IllegalArgumentException if s is not managed by this
+     * EncapsulatedEventManager or if lc contains a reference
+     * to a Class that s does not emit events on.
+     * </p>
+     *
+     * @param s   the event source
+     * @param eel the listener
+     * @param lc  the list of events to unregister the eel from receiving.
+     *
+     * @throws IllegalArgumentException
+     * @throws NullPointerException
+     */
 
-	void removeEncapsulatedEventListener(Object s, EncapsulatedEventListener eel,
-			Class[] lc);
+    void removeEncapsulatedEventListener(Object s, EncapsulatedEventListener eel,
+            Class<?>[] lc);
 }

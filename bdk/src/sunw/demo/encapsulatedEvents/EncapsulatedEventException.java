@@ -39,56 +39,56 @@ package sunw.demo.encapsulatedEvents;
 public class EncapsulatedEventException extends RuntimeException
 {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 1195160004155368009L;
-	protected Exception exception;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1195160004155368009L;
+    protected Exception exception;
 
-	/**
-	 * public constructor
-	 */
+    /**
+     * public constructor
+     */
 
-	public EncapsulatedEventException(Exception e)
-	{
-		this(e, null);
-	}
+    public EncapsulatedEventException(Exception e)
+    {
+        this(e, null);
+    }
 
-	/**
-	 * public constructor
-	 */
+    /**
+     * public constructor
+     */
 
-	public EncapsulatedEventException(Exception e, String s)
-	{
-		super(s);
+    public EncapsulatedEventException(Exception e, String s)
+    {
+        super(s);
 
-		if (e == null)
-			throw new IllegalArgumentException("null exception param");
+        if (e == null)
+            throw new IllegalArgumentException("null exception param");
 
-		exception = e;
-	}
+        exception = e;
+    }
 
-	/**
-	 * @returns the Exception Object itself
-	 */
+    /**
+     * @returns the Exception Object itself
+     */
 
-	public Exception getException() {
-		return exception;
-	}
+    public Exception getException() {
+        return exception;
+    }
 
-	/**
-	 * @returns the Class of the Exception Object itself.
-	 */
+    /**
+     * @returns the Class of the Exception Object itself.
+     */
 
-	public Class getExceptionClass() {
-		return exception.getClass();
-	}
+    public Class<?> getExceptionClass() {
+        return exception.getClass();
+    }
 
-	/**
-	 * @returns the name of the Class of the Exception Object itself.
-	 */
+    /**
+     * @returns the name of the Class of the Exception Object itself.
+     */
 
-	public String getExceptionClassName() {
-		return exception.getClass().getName();
-	}
+    public String getExceptionClassName() {
+        return exception.getClass().getName();
+    }
 }
